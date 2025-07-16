@@ -1,0 +1,14 @@
+{
+    "name": "news-mern",
+    "version": "0.0.1",
+    "private": true,
+    "devDependencies": {
+        "turbo": "latest",
+        "typescript": "^5.8.3"
+    },
+    "scripts": {
+        "dev": "turbo run dev --parallel",
+        "build": "turbo run build --parallel",
+        "lint": "turbo run lint --parallel"
+    }
+}

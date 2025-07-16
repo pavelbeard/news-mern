@@ -1,0 +1,18 @@
+{
+    "pipeline": {
+        "dev": {
+            "cache": false,
+            "dependsOn": [
+                "^dev"
+            ]
+        },
+        "build": {
+            "dependsOn": [
+                "^build"
+            ],
+            "outputs": [
+                "dist/**"
+            ]
+        }
+    }
+}
