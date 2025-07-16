@@ -1,0 +1,32 @@
+{
+  "exclude": ["tests/**/*"],
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "composite": true,
+    "incremental": true,
+    /*Language and environment*/
+    "target": "esnext",
+    /*Emit*/
+    "noEmit": true,
+    /*Modules*/
+    "module": "esnext",
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "types": ["node", "vitest/globals"],
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "esModuleInterop": true,
+    /*Type checking*/
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "alwaysStrict": true,
+    "noImplicitThis": true,
+    /*Paths*/
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}

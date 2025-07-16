@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./src/index.ts",
+  "scripts": {
+    "dev": "tsx --watch ./src/index.ts",
+    "prettier": "prettier ./src --write"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.3",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.14.0",
+    "oxlint": "^1.6.0",
+    "typescript": "5.8.3",
+    "vitest": "3.2.4"
+  },
+  "config": {
+    "tsconfig": "./tsconfig.json"
+  }
+}

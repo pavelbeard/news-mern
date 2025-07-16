@@ -1,14 +1,16 @@
 {
-    "name": "news-mern",
-    "version": "0.0.1",
-    "private": true,
-    "devDependencies": {
-        "turbo": "latest",
-        "typescript": "^5.8.3"
-    },
-    "scripts": {
-        "dev": "turbo run dev --parallel",
-        "build": "turbo run build --parallel",
-        "lint": "turbo run lint --parallel"
-    }
+  "name": "news-mern",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "turbo": "latest",
+    "typescript": "^5.8.3"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "prettier": "prettier --write \"**/*.{ts,tsx,json}\""
+  },
+  "packageManager": "pnpm@10.13.1"
 }
