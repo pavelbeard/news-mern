@@ -1,23 +1,16 @@
 {
-  "exclude": ["tests/**/*"],
+  "extends": "@repo/ts-config/backend.json",
+  "include": ["**/*.ts", "**/*.d.ts"],
+  "exclude": ["tests/**/*", "node_modules"],
   "compilerOptions": {
-    "lib": ["ESNext"],
-    "composite": true,
-    "incremental": true,
-    /*Language and environment*/
-    "target": "esnext",
     /*Emit*/
     "noEmit": true,
     /*Modules*/
-    "module": "esnext",
-    "moduleResolution": "node",
     "baseUrl": "./",
     "types": ["node", "vitest/globals"],
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
-    "esModuleInterop": true,
     /*Type checking*/
-    "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,

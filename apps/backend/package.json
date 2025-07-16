@@ -12,6 +12,7 @@
     "express": "^5.1.0"
   },
   "devDependencies": {
+    "@repo/ts-config": "workspace:*",
     "@types/node": "22.14.0",
     "oxlint": "^1.6.0",
     "typescript": "5.8.3",
