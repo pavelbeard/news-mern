@@ -10,14 +10,16 @@
   "dependencies": {
     "@types/express": "^5.0.3",
     "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
     "express": "^5.1.0",
     "mongoose": "^8.16.4",
     "zod": "^4.0.5"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
     "@dotenvx/dotenvx": "^1.47.6",
+    "@repo/typescript-config": "workspace:*",
     "@types/cookie-parser": "^1.4.9",
+    "@types/cors": "^2.8.19",
     "@types/node": "22.14.0",
     "oxlint": "^1.6.0",
     "typescript": "5.8.3",

@@ -1,14 +1,27 @@
 import { PORT } from "@/lib/constants";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import express from "express";
 import router from "./features/api";
 import { client } from "./lib/db/client";
-import { errorFallbackMiddleware } from "./lib/utils/middlewares";
+import { ALLOWED_ORIGINS } from "./lib/settings";
+import {
+  errorFallbackMiddleware,
+  originResolver,
+} from "./lib/utils/middlewares";
 
 const app = express();
 
 // third party
-app.use([express.json(), cookieParser()]);
+app.use([
+  express.json(),
+  cookieParser(),
+  cors({
+    credentials: true,
+    origin: (origin, callback) =>
+      originResolver(ALLOWED_ORIGINS, origin, callback),
+  }),
+]);
 
 client()
   .then(() => console.log("Connected to database"))

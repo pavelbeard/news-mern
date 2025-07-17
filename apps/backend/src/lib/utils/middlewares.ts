@@ -1,6 +1,19 @@
+import { StaticOrigin } from "@/types";
 import { NextFunction, Request, type Response } from "express";
 import { ZodError, type ZodObject } from "zod";
 import { AppError } from "./appError";
+
+export const originResolver = (
+  allowedOrigins: string[],
+  origin: string | undefined,
+  callback: (err: AppError | Error | null, origin?: StaticOrigin) => void
+) => {
+  if (allowedOrigins.includes(origin as string)) {
+    return callback(null, origin);
+  }
+
+  return callback(new AppError("FORBIDDEN", "Not allowed by CORS!"));
+};
 
 export const errorFallbackMiddleware = (
   err: Error,
