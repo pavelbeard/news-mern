@@ -4,6 +4,7 @@ import { NewsController } from "./news.controller";
 import {
   newsArchiveSchema,
   newsCreateSchema,
+  newsDeleteSchema,
   newsReadSchema,
   newsUpdateSchema,
 } from "./news.schema";
@@ -34,6 +35,12 @@ newsRouter.patch(
   "/news/:_id",
   schemaValidationMiddleware(newsArchiveSchema),
   NewsController.archiveNews
+);
+
+newsRouter.delete(
+  "/news/:_id",
+  schemaValidationMiddleware(newsDeleteSchema),
+  NewsController.deleteNews
 );
 
 export { newsRouter };

@@ -4,6 +4,7 @@ import type { NextFunction, Request, Response } from "express";
 import type {
   NewsArchiveSchemaType,
   NewsCreateSchemaType,
+  NewsDeleteSchemaType,
   NewsReadSchemaType,
   NewsUpdateSchemaType,
 } from "./news.schema";
@@ -30,6 +31,12 @@ export type NewsArchiveRequest = Request<
   NewsArchiveSchemaType["params"],
   unknown,
   NewsArchiveSchemaType["body"]
+>;
+
+export type NewsDeleteRequest = Request<
+  NewsDeleteSchemaType["params"],
+  unknown,
+  unknown
 >;
 
 export class NewsController {
@@ -148,5 +155,19 @@ export class NewsController {
     res.status(200).json({
       object: { ...updatedNews },
     });
+  }
+
+  static async deleteNews(
+    req: NewsDeleteRequest,
+    res: Response,
+    _: NextFunction
+  ) {
+    const {
+      params: { _id },
+    } = req;
+
+    await newsQueries.deleteNews(_id);
+
+    res.status(204);
   }
 }

@@ -13,6 +13,12 @@ const newsSchema = z.object({
   archiveDate: z.date().optional(),
 });
 
+const newsParamsBaseSchema = z.object({
+  params: z.object({
+    _id: z.string(),
+  }),
+});
+
 /*GENERAL*/
 export type NewSchemaType = z.infer<typeof newsSchema>;
 
@@ -23,31 +29,25 @@ export const newsCreateSchema = z.object({
 export type NewsCreateSchemaType = z.infer<typeof newsCreateSchema>;
 
 /*READ*/
-export const newsReadSchema = z.object({
-  params: z.object({
-    _id: z.string(),
-  }),
-});
-
+export const newsReadSchema = newsParamsBaseSchema;
 export type NewsReadSchemaType = z.infer<typeof newsReadSchema>;
 
 /*UPDATE*/
-const newsUpdateBaseSchema = z.object({
-  params: z.object({
-    _id: z.string(),
-  }),
-});
-
-export const newsUpdateSchema = newsUpdateBaseSchema.extend({
+export const newsUpdateSchema = newsParamsBaseSchema.extend({
   body: newsSchema,
 });
 
 export type NewsUpdateSchemaType = z.infer<typeof newsUpdateSchema>;
 
-export const newsArchiveSchema = newsUpdateBaseSchema.extend({
+export const newsArchiveSchema = newsParamsBaseSchema.extend({
   body: z.object({
     archiveDate: z.date(),
   }),
 });
 
 export type NewsArchiveSchemaType = z.infer<typeof newsArchiveSchema>;
+
+/*DELETE*/
+
+export const newsDeleteSchema = newsParamsBaseSchema;
+export type NewsDeleteSchemaType = z.infer<typeof newsDeleteSchema>;

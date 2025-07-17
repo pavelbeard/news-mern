@@ -13,7 +13,9 @@ export const saveNews = async (data: NewSchemaType) => {
 
 /*READ*/
 export const getAllNews = async () => {
-  return await News.find().lean();
+  return (await News.find().lean()).toSorted(
+    (a, b) => b.date.getDate() - a.date.getDate()
+  );
 };
 
 export const getNewsById = async (_id: string) => {
@@ -27,7 +29,6 @@ export const getNewsByTitle = async (title: string) => {
 };
 
 /*UPDATE*/
-
 export const updateNewsById = async (
   _id: string,
   data: NewsUpdateSchemaType["body"]
@@ -46,3 +47,6 @@ export const setNewsArchived = async (_id: string, archiveDate: Date) => {
     { new: true }
   ).then((res) => res?.toObject());
 };
+
+/*DELETE*/
+export const deleteNews = async (_id: string) => {};
