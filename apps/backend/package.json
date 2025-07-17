@@ -15,8 +15,8 @@
     "zod": "^4.0.5"
   },
   "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
     "@dotenvx/dotenvx": "^1.47.6",
-    "@repo/ts-config": "workspace:*",
     "@types/cookie-parser": "^1.4.9",
     "@types/node": "22.14.0",
     "oxlint": "^1.6.0",

@@ -1,6 +1,7 @@
 {
-  "name": "@repo/ts-config",
+  "name": "@repo/typescript-config",
   "private": "true",
+  "description": "tsconfig share packages",
   "license": "MIT",
   "publishConfig": {
     "access": "public"

@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/ts-config/backend.json",
+  "extends": "@repo/typescript-config/backend.json",
   "include": ["**/*.ts", "**/*.d.ts"],
   "exclude": ["tests/**/*", "node_modules"],
   "compilerOptions": {
