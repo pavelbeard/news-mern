@@ -31,12 +31,11 @@ export const schemaValidationMiddleware =
         next(
           new AppError(
             "BAD_REQUEST",
-            `Invalid or missing input ${issues.length > 1 ? "s" : ""} 
-              provided for: ${issues.join(", ")}
-            `
+            `Invalid or missing input${issues.length > 1 ? "s" : ""} provided for: ${issues.join(", ")}`
           )
         );
       } else {
+        console.error(e);
         return next(new AppError("BAD_REQUEST", "Invalid input"));
       }
     }

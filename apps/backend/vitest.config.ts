@@ -10,6 +10,9 @@ export default defineConfig({
         test: {
           include: ["**/*.test.ts"],
           name: { label: "unit", color: "red" },
+          alias: {
+            queries: "/src/lib/db/queries",
+          },
         },
       },
     ],

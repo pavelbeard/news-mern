@@ -8,25 +8,35 @@ import { News } from "../models/news.models";
 export const saveNews = async (data: NewSchemaType) => {
   return await News.create({
     ...data,
-  });
+  }).then((res) => res.toObject());
 };
 
 /*READ*/
 export const getAllNews = async () => {
-  return await News.find();
+  return await News.find().lean();
 };
 
 export const getNewsById = async (_id: string) => {
-  return await News.findById(_id);
+  return await News.findById(_id).then((res) => res?.toObject());
+};
+
+export const getNewsByTitle = async (title: string) => {
+  return await News.findOne({
+    title,
+  }).then((res) => res?.toObject());
 };
 
 /*UPDATE*/
 
 export const updateNewsById = async (
   _id: string,
-  data: NewsUpdateSchemaType
+  data: NewsUpdateSchemaType["body"]
 ) => {
-  return await News.updateOne({ _id }, { $set: { ...data } }, { new: true });
+  return await News.findByIdAndUpdate(
+    { _id },
+    { $set: { ...data } },
+    { new: true }
+  ).then((i) => i?.toObject());
 };
 
 export const setNewsArchived = async (_id: string, archiveDate: Date) => {
@@ -34,5 +44,5 @@ export const setNewsArchived = async (_id: string, archiveDate: Date) => {
     _id,
     { $set: { archiveDate } },
     { new: true }
-  );
+  ).then((res) => res?.toObject());
 };
