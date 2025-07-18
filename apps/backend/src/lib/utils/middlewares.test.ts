@@ -137,7 +137,10 @@ describe("Tests middlewares", () => {
         );
 
         expect(next).toHaveBeenCalledWith(
-          new AppError("BAD_REQUEST", `Invalid input`)
+          new AppError(
+            "BAD_REQUEST",
+            `Invalid or missing inputs provided for: _id, title, content, author`
+          )
         );
       });
 

@@ -1,5 +1,5 @@
+import { News } from "@/lib/db/models/news.models";
 import * as newsQueries from "@/lib/db/queries/news.queries";
-import { INews } from "@/lib/db/schemas/news.schema";
 import { AppError } from "@/lib/utils/appError";
 import type { Response } from "express";
 import mongoose from "mongoose";
@@ -11,7 +11,6 @@ import {
   NewsReadRequest,
   NewsUpdateRequest,
 } from "./news.controller";
-import { NewsCreateSchemaType } from "./news.schema";
 
 vi.mock("queries/news.queries", () => ({
   saveNews: vi.fn(),
@@ -62,19 +61,15 @@ describe("News controller", () => {
     });
 
     it("should throw error with the same title", async () => {
-      const body: NewsCreateSchemaType["body"] = {
+      const body = new News({
         title: "Random random title",
         date: new Date(),
         content: "Random content",
         author: "Random author",
         description: "Random description",
-      };
-
-      vi.mocked(newsQueries.getNewsByTitle).mockResolvedValue({
-        _id: new mongoose.Types.ObjectId(),
-        __v: 0,
-        ...body,
       });
+
+      vi.mocked(newsQueries.getNewsByTitle).mockResolvedValue(body);
 
       const request = {
         body,
@@ -94,27 +89,21 @@ describe("News controller", () => {
     });
 
     it("should save the news object", async () => {
-      const body: NewsCreateSchemaType["body"] = {
+      const body = new News({
         title: "Random random title",
         date: new Date(),
         content: "Random content",
         author: "Random author",
         description: "Random description",
-      };
+      });
 
       const request = {
         body,
       } as unknown as NewsCreateRequest;
 
-      const resolvedValue = {
-        ...body,
-        _id: new mongoose.Types.ObjectId(),
-        __v: 0,
-      };
+      vi.mocked(newsQueries.getNewsByTitle).mockResolvedValue(null);
 
-      vi.mocked(newsQueries.getNewsByTitle).mockResolvedValue(undefined);
-
-      vi.mocked(newsQueries.saveNews).mockResolvedValueOnce(resolvedValue);
+      vi.mocked(newsQueries.saveNews).mockResolvedValueOnce(body);
 
       await NewsController.saveNews(request, response, next);
 
@@ -122,7 +111,7 @@ describe("News controller", () => {
 
       expect(response.status).toHaveBeenCalledWith(201);
       expect(response.json).toHaveBeenCalledWith({
-        object: { ...resolvedValue },
+        object: { ...body },
       });
     });
   });
@@ -135,7 +124,7 @@ describe("News controller", () => {
         },
       } as unknown as NewsReadRequest;
 
-      vi.mocked(newsQueries.getNewsById).mockResolvedValueOnce(undefined);
+      vi.mocked(newsQueries.getNewsById).mockResolvedValueOnce(null);
 
       await NewsController.getNewsById(request, response, next);
 
@@ -155,29 +144,21 @@ describe("News controller", () => {
         },
       } as unknown as NewsReadRequest;
 
-      const body = {
+      const body = new News({
         title: "Random random title",
         date: new Date(),
         content: "Random content",
         author: "Random author",
         description: "Random description",
-      };
+      });
 
-      const responseObject = {
-        _id: request.params._id,
-        ...body,
-        __v: 0,
-      } as unknown as
-        | (INews & { _id: mongoose.Types.ObjectId } & { __v: number })
-        | undefined;
-
-      vi.mocked(newsQueries.getNewsById).mockResolvedValueOnce(responseObject);
+      vi.mocked(newsQueries.getNewsById).mockResolvedValueOnce(body);
 
       await NewsController.getNewsById(request, response, next);
 
       expect(response.status).toHaveBeenCalledWith(200);
       expect(response.json).toHaveBeenCalledWith({
-        object: { ...responseObject },
+        object: { ...body },
       });
     });
   });
@@ -221,7 +202,7 @@ describe("News controller", () => {
           },
         } as unknown as NewsUpdateRequest;
 
-        vi.mocked(newsQueries.updateNewsById).mockResolvedValueOnce(undefined);
+        vi.mocked(newsQueries.updateNewsById).mockResolvedValueOnce(null);
 
         await NewsController.updateNews(request, response, next);
 
@@ -242,13 +223,13 @@ describe("News controller", () => {
       });
 
       it("should return updated object", async () => {
-        const body = {
-          title: "New random random title",
+        const body = new News({
+          title: "Random title",
           date: new Date(),
           content: "Random content",
           author: "Random author",
           description: "Random description",
-        };
+        });
 
         request = {
           body,
@@ -257,13 +238,17 @@ describe("News controller", () => {
           },
         } as unknown as NewsUpdateRequest;
 
-        const updatedObject = {
-          _id: request.params._id,
-          ...body,
-          __v: 0,
-        } as unknown as
-          | (INews & { _id: mongoose.Types.ObjectId } & { __v: number })
-          | undefined;
+        vi.mocked(newsQueries.getNewsById).mockResolvedValueOnce(body);
+
+        await NewsController.getNewsById(request, response, next);
+
+        expect(response.json).toHaveBeenCalledWith({
+          object: body,
+        });
+
+        const updatedObject = body.set({
+          title: "New random title",
+        });
 
         vi.mocked(newsQueries.updateNewsById).mockResolvedValueOnce(
           updatedObject
@@ -313,7 +298,7 @@ describe("News controller", () => {
           },
         } as unknown as NewsArchiveRequest;
 
-        vi.mocked(newsQueries.setNewsArchived).mockResolvedValueOnce(undefined);
+        vi.mocked(newsQueries.setNewsArchived).mockResolvedValueOnce(null);
 
         await NewsController.archiveNews(request, response, next);
 
@@ -334,13 +319,28 @@ describe("News controller", () => {
       });
 
       it("should return updated object", async () => {
-        const body1 = {
-          title: "New random random title",
+        const body1 = new News({
+          title: "Random title",
           date: new Date(),
           content: "Random content",
           author: "Random author",
           description: "Random description",
-        };
+        });
+
+        const request1 = {
+          body: body1,
+          params: {
+            _id: "random_id",
+          },
+        } as unknown as NewsReadRequest;
+
+        vi.mocked(newsQueries.getNewsById).mockResolvedValueOnce(body1);
+
+        await NewsController.getNewsById(request1, response, next);
+
+        expect(response.json).toHaveBeenCalledWith({
+          object: body1,
+        });
 
         const archiveDate = new Date();
 
@@ -353,18 +353,13 @@ describe("News controller", () => {
         request = {
           body: body2,
           params: {
-            _id: new mongoose.Types.ObjectId(),
+            _id: "random_id",
           },
         } as unknown as NewsArchiveRequest;
 
-        const updatedObject = {
-          _id: request.params._id,
-          ...body1,
-          ...body2,
-          __v: 0,
-        } as unknown as
-          | (INews & { _id: mongoose.Types.ObjectId } & { __v: number })
-          | undefined;
+        const updatedObject = body1.set({
+          archiveDate,
+        });
 
         vi.mocked(newsQueries.setNewsArchived).mockResolvedValueOnce(
           updatedObject

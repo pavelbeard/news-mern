@@ -8,7 +8,7 @@ import { News } from "../models/news.models";
 export const saveNews = async (data: NewSchemaType) => {
   return await News.create({
     ...data,
-  }).then((res) => res.toObject());
+  });
 };
 
 /*READ*/
@@ -21,13 +21,13 @@ export const getAllNews = async () => {
 };
 
 export const getNewsById = async (_id: string) => {
-  return await News.findById(_id).then((res) => res?.toObject());
+  return await News.findById(_id);
 };
 
 export const getNewsByTitle = async (title: string) => {
   return await News.findOne({
     title: { $regex: title.replaceAll(/-/g, " "), $options: "i" },
-  }).then((res) => res?.toObject());
+  });
 };
 
 export const getLastNews = async () => {
@@ -49,7 +49,7 @@ export const updateNewsById = async (
     { _id },
     { $set: { ...data } },
     { new: true }
-  ).then((i) => i?.toObject());
+  );
 };
 
 export const setNewsArchived = async (_id: string, archiveDate: Date) => {
@@ -57,8 +57,10 @@ export const setNewsArchived = async (_id: string, archiveDate: Date) => {
     _id,
     { $set: { archiveDate } },
     { new: true }
-  ).then((res) => res?.toObject());
+  );
 };
 
 /*DELETE*/
-export const deleteNews = async (_id: string) => {};
+export const deleteNews = async (_id: string) => {
+  await News.deleteOne({ _id });
+};
