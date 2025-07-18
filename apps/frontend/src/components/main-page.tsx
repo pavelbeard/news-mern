@@ -19,7 +19,7 @@ export default function Home() {
           maskPosition: "top",
         }}
       >
-        <h1 className="text-3xl font-bold">{data.object.title}</h1>
+        <h1 data-testid="title" className="text-3xl font-bold">{data.object.title}</h1>
         <img src={Placeholder} alt="news-image-main" width={800} />
         <div className="flex items-end gap-2">
           <h2 className="text-xl font-semibold">{data.object.author}</h2>

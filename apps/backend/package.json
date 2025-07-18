@@ -5,6 +5,7 @@
   "main": "./src/index.ts",
   "scripts": {
     "dev": "dotenvx run -f .env.local -- tsx --watch ./src/index.ts",
+    "serve": "tsx ./src/index.ts",
     "prettier": "prettier ./src --write"
   },
   "dependencies": {
