@@ -16,7 +16,7 @@
         "MONGODB_PASSWORD"
       ]
     },
-    "build": {
+    "frontend#build": {
       "dependsOn": [
         "^build"
       ],
