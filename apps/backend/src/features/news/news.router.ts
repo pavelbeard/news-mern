@@ -25,6 +25,8 @@ newsRouter.get(
   NewsController.getNewsById
 );
 
+newsRouter.get("/news-last", NewsController.getLastNews);
+
 newsRouter.put(
   "/news/:_id",
   schemaValidationMiddleware(newsUpdateSchema),

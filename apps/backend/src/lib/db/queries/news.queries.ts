@@ -13,9 +13,11 @@ export const saveNews = async (data: NewSchemaType) => {
 
 /*READ*/
 export const getAllNews = async () => {
-  return (await News.find().lean()).toSorted(
-    (a, b) => b.date.getDate() - a.date.getDate()
-  );
+  return await News.aggregate([
+    {
+      $sort: { date: -1 },
+    },
+  ]);
 };
 
 export const getNewsById = async (_id: string) => {
@@ -24,8 +26,18 @@ export const getNewsById = async (_id: string) => {
 
 export const getNewsByTitle = async (title: string) => {
   return await News.findOne({
-    title,
+    title: { $regex: title.replaceAll(/-/g, " "), $options: "i" },
   }).then((res) => res?.toObject());
+};
+
+export const getLastNews = async () => {
+  return (
+    await News.aggregate([
+      {
+        $sort: { date: -1 },
+      },
+    ]).limit(1)
+  ).pop();
 };
 
 /*UPDATE*/

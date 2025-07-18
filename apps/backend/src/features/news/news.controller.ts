@@ -90,6 +90,22 @@ export class NewsController {
     });
   }
 
+  static async getLastNews(
+    req: NewsReadRequest,
+    res: Response,
+    next: NextFunction
+  ) {
+    const lastNews = await newsQueries.getLastNews();
+
+    if (!lastNews) {
+      return next(new AppError("NOT_FOUND", "News not found."));
+    }
+
+    res.status(200).json({
+      object: lastNews,
+    });
+  }
+
   static async updateNews(
     req: NewsUpdateRequest,
     res: Response,

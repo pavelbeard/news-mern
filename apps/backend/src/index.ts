@@ -1,6 +1,7 @@
 import { PORT } from "@/lib/constants";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import type { NextFunction, Request, Response } from "express";
 import express from "express";
 import router from "./features/api";
 import { client } from "./lib/db/client";
@@ -21,6 +22,17 @@ app.use([
     origin: (origin, callback) =>
       originResolver(ALLOWED_ORIGINS, origin, callback),
   }),
+  // logger
+  (req: Request, res: Response, next: NextFunction) => {
+    const time = new Date().toISOString();
+    console.log(
+      `[${req.method}]:`,
+      `$host=${req.hostname}`,
+      `$path=${req.path}`,
+      time
+    );
+    next();
+  },
 ]);
 
 client()
