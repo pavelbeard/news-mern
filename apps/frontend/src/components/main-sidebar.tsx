@@ -6,7 +6,7 @@ import {
   SidebarGroup,
   SidebarHeader,
 } from "./ui/sidebar.tsx";
-import { Link } from "react-router";
+import { NavLink } from "react-router";
 import { cn } from "@/lib/utils.ts";
 
 interface ISidebarItem {
@@ -41,18 +41,22 @@ export default function MainSidebar() {
         <SidebarGroup>
           <nav className="flex flex-col gap-2">
             {items.map((i) => (
-              <Link
+              <NavLink
                 key={i.title}
                 to={{ pathname: i.pathname }}
-                className={cn(
-                  "px-4 py-2 flex items-center gap-2",
-                  " bg-amber-300 rounded-lg",
-                  "hover:rounded-2xl hover:bg-amber-300/80 transition-all"
-                )}
+                className={({ isActive }) =>
+                  cn(
+                    "px-4 py-2 flex items-center gap-2",
+                    isActive
+                      ? "bg-black rounded-lg text-white shadow-lg shadow-gray-2500"
+                      : "bg-amber-300 rounded-2xl",
+                    "hover:rounded-2xl hover:bg-amber-300/65 transition-all"
+                  )
+                }
               >
                 {i.icon}
                 <header>{i.title}</header>
-              </Link>
+              </NavLink>
             ))}
           </nav>
         </SidebarGroup>
