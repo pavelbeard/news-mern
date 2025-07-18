@@ -7,7 +7,7 @@ import z from "zod";
 const newsSchema = z.object({
   title: z.string().min(4).max(255),
   description: z.string().max(255).optional(),
-  date: z.date().default(new Date()),
+  date: z.string().default(new Date().toISOString()),
   content: z.string(),
   author: z.string(),
   archiveDate: z.date().optional(),
@@ -41,7 +41,7 @@ export type NewsUpdateSchemaType = z.infer<typeof newsUpdateSchema>;
 
 export const newsArchiveSchema = newsParamsBaseSchema.extend({
   body: z.object({
-    archiveDate: z.date(),
+    archiveDate: z.string(),
   }),
 });
 

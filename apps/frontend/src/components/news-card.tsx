@@ -1,24 +1,38 @@
-import { INewsSingular__Database } from "@/lib/types/news";
-import { Card, CardContent, CardHeader } from "./ui/card";
+import { INewsObject__Database } from "@/lib/types/news";
+import { Card, CardAction, CardContent, CardHeader } from "./ui/card";
+import Placeholder from "@/assets/placeholder.png";
+import NewsAddArchiveDialog from "./news-add-archive-dialog";
+import NewsEditArticleDialog from "./news-edit-article-dialog";
+import NewsDeleteArchiveDialog from "./news-delete-archive-dialog";
 
 export default function NewsCard({
   news,
 }: {
-  news: INewsSingular__Database["object"];
+  news: INewsObject__Database["object"];
 }) {
   return (
-    <Card className="min-w-[600px] mx-auto border-t-2!">
+    <Card className="max-w-[600px] mx-auto border-t-2!">
+      <CardAction className="flex items-center gap-2 pl-6">
+        {news.archiveDate ? (
+          <NewsDeleteArchiveDialog />
+        ) : (
+          <>
+            <NewsAddArchiveDialog />
+            <NewsEditArticleDialog />
+          </>
+        )}
+      </CardAction>
       <CardHeader className="text-center text-2xl font-bold">
         {news.title}
       </CardHeader>
       <CardContent>
-        Here should be an image to illustrate what happened.
+        <img src={Placeholder} alt="news-image" width={600} />
         <p className="text-xs text-gray-600">{news.description}</p>
         <p className="text-lg font-semibold">{news.author}</p>
         {news?.archiveDate ? (
           <>
             <p className="text-md font-semibold">
-              Archived at
+              Archived at{" "}
               {new Date(news.archiveDate).toLocaleDateString() +
                 " " +
                 new Date(news.archiveDate).toLocaleTimeString(undefined, {
@@ -37,6 +51,9 @@ export default function NewsCard({
             </p>
           </>
         )}
+      </CardContent>
+      <CardContent>
+        <p>{news.content}</p>
       </CardContent>
     </Card>
   );

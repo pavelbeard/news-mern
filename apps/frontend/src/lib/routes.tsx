@@ -1,43 +1,56 @@
 import App from "@/App.tsx";
 import { createBrowserRouter } from "react-router";
-import * as newsQueries from "./api/queries/news.queries";
 import NewsLayout from "@/components/news-layout";
-import NewsArticle from "@/components/news-article";
+import NewsArticle from "@/components/news-article-page";
 import Home from "@/components/main-page";
 import NewsPage from "@/components/news-page";
+import Error from "@/components/error";
+import * as loaders from "./router-api/loaders/news.loaders";
+import * as actions from "./router-api/actions/news.actions";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: App,
+    element: <App />,
+    errorElement: <Error />,
     children: [
       {
         index: true,
         Component: Home,
-        loader: async () => {
-          let data = newsQueries.getLastNews();
-          return data;
-        },
+        loader: loaders.getLastNews,
       },
       {
         path: "/news",
+        Component: NewsLayout,
+        action: actions.saveNews,
+        children: [
+          {
+            index: true,
+            Component: NewsPage,
+            loader: loaders.getAllNews,
+          },
+          {
+            path: "id/:_id/title/:title",
+            Component: NewsArticle,
+            loader: loaders.getNewsById,
+            action: actions.updateNews,
+          },
+        ],
+      },
+      {
+        path: "/news-archive",
         Component: NewsLayout,
         children: [
           {
             index: true,
             Component: NewsPage,
-            loader: async () => {
-              let data = await newsQueries.getAllNews();
-              return data;
-            },
+            loader: loaders.getAllArchiveNews,
           },
           {
             path: "id/:_id/title/:title",
             Component: NewsArticle,
-            loader: async ({ params }) => {
-              let data = await newsQueries.getNewsById(params._id as string);
-              return data;
-            },
+            loader: loaders.getNewsById,
+            action: actions.archiveNewsAction,
           },
         ],
       },

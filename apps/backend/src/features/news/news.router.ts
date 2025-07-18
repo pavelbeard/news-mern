@@ -19,6 +19,8 @@ newsRouter.post(
 
 newsRouter.get("/news", NewsController.getAllNews);
 
+newsRouter.get("/news-archive", NewsController.getAllArchiveNews);
+
 newsRouter.get(
   "/news/:_id",
   schemaValidationMiddleware(newsReadSchema),

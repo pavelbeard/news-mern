@@ -72,6 +72,13 @@ export class NewsController {
     });
   }
 
+  static async getAllArchiveNews(req: Request, res: Response, _: NextFunction) {
+    const archiveNews = await newsQueries.getAllArchiveNews();
+    res.status(200).json({
+      objects: archiveNews,
+    });
+  }
+
   static async getNewsById(
     req: NewsReadRequest,
     res: Response,

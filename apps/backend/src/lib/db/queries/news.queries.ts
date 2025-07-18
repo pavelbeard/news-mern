@@ -12,12 +12,37 @@ export const saveNews = async (data: NewSchemaType) => {
 };
 
 /*READ*/
+/**
+ * returns all unarchive news
+ */
 export const getAllNews = async () => {
-  return await News.aggregate([
+  return await News.find(
     {
-      $sort: { date: -1 },
+      $or: [
+        { archiveDate: { $eq: null } },
+        { archiveDate: { $exists: false } },
+      ],
     },
-  ]);
+    {},
+    {
+      sort: { date: -1 },
+    }
+  );
+};
+
+export const getAllArchiveNews = async () => {
+  return await News.find(
+    {
+      $or: [
+        { archiveDate: { $not: { $eq: null } } },
+        { archiveDate: { $exists: true } },
+      ],
+    },
+    {},
+    {
+      sort: { archiveDate: -1 },
+    }
+  );
 };
 
 export const getNewsById = async (_id: string) => {
@@ -32,11 +57,19 @@ export const getNewsByTitle = async (title: string) => {
 
 export const getLastNews = async () => {
   return (
-    await News.aggregate([
+    await News.find(
       {
-        $sort: { date: -1 },
+        $or: [
+          { archiveDate: { $eq: null } },
+          { archiveDate: { $exists: false } },
+        ],
       },
-    ]).limit(1)
+      {},
+      {
+        sort: { date: -1 },
+        limit: 1,
+      }
+    )
   ).pop();
 };
 

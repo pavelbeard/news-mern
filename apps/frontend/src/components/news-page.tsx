@@ -1,51 +1,93 @@
 import { Separator } from "./ui/separator";
-import { Link, useLoaderData } from "react-router";
-import { INews__Database } from "@/lib/types/news";
+import { Link, useLoaderData, useLocation } from "react-router";
+import { INewsObjects__Database } from "@/lib/types/news";
 import { createNewsURL } from "@/utils/create-news-url";
+import NewsAddArticleDialog from "./news-add-article-dialog";
+import { cn } from "@/lib/utils";
+import Placeholder from "@/assets/placeholder.png";
 
 export default function NewsPage() {
-  const data = useLoaderData<INews__Database>();
+  const data = useLoaderData<INewsObjects__Database>();
+  const location = useLocation();
+  const isNewsArchive = location.pathname.match(/^(\/news-archive)/);
 
-  if (data?.objects) {
+  if (data.objects && data.objects.length > 0) {
     return (
-      <div className="flex flex-col max-w-[600px] mx-auto gap-4 px-6 bg-gray-200/20">
-        {data?.objects?.map((news) => (
-          <article key={news._id}>
+      <div
+        className={cn(
+          "flex flex-col w-[600px] mx-auto gap-4 px-6 bg-gray-200/20",
+          data.objects.length > 2 ? "rounded-t-3xl" : "rounded-3xl"
+        )}
+      >
+        {!isNewsArchive && <NewsAddArticleDialog className="w-32 my-4" />}
+        <div className={cn("flex flex-col space-y-2", isNewsArchive && "my-4")}>
+          {data?.objects?.map((news) => (
             <Link
+              key={news._id}
               to={{
                 pathname: createNewsURL({
+                  archive: Boolean(news?.archiveDate),
                   main: true,
                   id: news._id,
                   title: news.title,
                 }),
               }}
-              className="text-2xl font-bold"
             >
-              {news.title}
+              <article className="p-6 bg-amber-300/80 rounded-2xl flex flex-col gap-0.5">
+                <h1 className="text-2xl font-bold">{news.title}</h1>
+                <img src={Placeholder} alt={`news-placeholder-${news._id}`} />
+                <div className="flex items-center gap-1">
+                  <p>{news.author}</p>
+                  <Separator
+                    orientation="vertical"
+                    className="h-4! bg-gray-900!"
+                  />
+                  {news.archiveDate ? (
+                    <>
+                      <p>
+                        {new Date(news.archiveDate).toLocaleDateString(
+                          undefined,
+                          {
+                            dateStyle: "short",
+                          }
+                        )}
+                      </p>
+                      <p>
+                        {new Date(news.archiveDate).toLocaleTimeString(
+                          undefined,
+                          {
+                            timeStyle: "short",
+                          }
+                        )}
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p>
+                        {new Date(news.date).toLocaleDateString(undefined, {
+                          dateStyle: "short",
+                        })}
+                      </p>
+                      <p>
+                        {new Date(news.date).toLocaleTimeString(undefined, {
+                          timeStyle: "short",
+                        })}
+                      </p>
+                    </>
+                  )}
+                </div>
+              </article>
             </Link>
-            <Separator />
-            <div className="flex items-center gap-1">
-              <p>{news.author}</p>
-              <Separator
-                orientation="vertical"
-                className="h-4! bg-gray-500/20!"
-              />
-              <p>
-                {new Date(news.date).toLocaleDateString(undefined, {
-                  dateStyle: "short",
-                })}
-              </p>
-              <p>
-                {new Date(news.date).toLocaleTimeString(undefined, {
-                  timeStyle: "short",
-                })}
-              </p>
-            </div>
-          </article>
-        ))}
+          ))}
+        </div>
       </div>
     );
   }
 
-  return <div>Nothing</div>;
+  return (
+    <div className="place-self-center flex flex-col items-center gap-4">
+      <header className="text-2xl font-bold">Nothing there</header>
+      {!isNewsArchive && <NewsAddArticleDialog />}
+    </div>
+  );
 }

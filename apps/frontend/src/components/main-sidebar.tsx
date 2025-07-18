@@ -28,7 +28,7 @@ const items: ISidebarItem[] = [
   },
   {
     title: "Archive",
-    pathname: "/archive",
+    pathname: "/news-archive",
     icon: <ArchiveIcon className="size-4" />,
   },
 ];

@@ -1,5 +1,0 @@
-.mask {
-  -webkit-mask-image: linear-gradient(black 5%, transparent);
-  mask-image: linear-gradient(black 5%, transparent);
-  mask-position: top;
-}
