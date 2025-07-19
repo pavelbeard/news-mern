@@ -1,4 +1,3 @@
-import { AxiosError } from "axios";
 import { UNSAFE_ErrorResponseImpl, useRouteError } from "react-router-dom";
 
 enum ErrorStatus {
@@ -20,27 +19,21 @@ export default function Error() {
   const error = useRouteError() as Error;
 
   function status(error: unknown) {
-    if (error instanceof AxiosError) {
-      return ErrorStatus[error.status as number];
-    }
-
     if (error instanceof UNSAFE_ErrorResponseImpl) {
       return ErrorStatus[error.status as number];
     }
+
+    console.error(error);
 
     return "Application error";
   }
 
   function message(error: unknown) {
-    if (error instanceof AxiosError) {
-      return AxiosErrorMessage[error.status as number];
-    }
-
     if (error instanceof UNSAFE_ErrorResponseImpl) {
       return AppErrorMessage[error.status as number];
     }
 
-    console.log(error);
+    console.error(error);
 
     return "Something went wrong...";
   }
