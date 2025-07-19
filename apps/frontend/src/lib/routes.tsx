@@ -1,7 +1,6 @@
 import App from "@/App.tsx";
 import { createBrowserRouter } from "react-router";
 import NewsLayout from "@/components/news-layout";
-import NewsArticle from "@/components/news-article-page";
 import Home from "@/components/main-page";
 import NewsPage from "@/components/news-page";
 import Error from "@/components/error";
@@ -31,9 +30,16 @@ const router = createBrowserRouter([
           },
           {
             path: "id/:_id/title/:title",
-            Component: NewsArticle,
-            loader: loaders.getNewsById,
-            action: actions.updateNews,
+            lazy: {
+              Component: async () =>
+                (await import("@/components/news-article-page")).default,
+              loader: async () =>
+                (await import("@/lib/router-api/loaders/news.loaders"))
+                  .getNewsById,
+              action: async () =>
+                (await import("@/lib/router-api/actions/news.actions"))
+                  .updateNews,
+            },
           },
         ],
       },
@@ -43,14 +49,26 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            Component: NewsPage,
-            loader: loaders.getAllArchiveNews,
+            lazy: {
+              Component: async () =>
+                (await import("@/components/news-page")).default,
+              loader: async () =>
+                (await import("@/lib/router-api/loaders/news.loaders"))
+                  .getAllArchiveNews,
+            },
           },
           {
             path: "id/:_id/title/:title",
-            Component: NewsArticle,
-            loader: loaders.getNewsById,
-            action: actions.archiveNewsAction,
+            lazy: {
+              Component: async () =>
+                (await import("@/components/news-article-page")).default,
+              loader: async () =>
+                (await import("@/lib/router-api/loaders/news.loaders"))
+                  .getNewsById,
+              action: async () =>
+                (await import("@/lib/router-api/actions/news.actions"))
+                  .archiveNewsAction,
+            },
           },
         ],
       },

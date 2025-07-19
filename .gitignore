@@ -25,6 +25,7 @@ public/dist
 *.njsproj
 *.sln
 *.sw?
+tsconfig.tsbuildinfo
 
 # turbo
 .turbo
