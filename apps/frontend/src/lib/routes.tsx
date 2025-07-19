@@ -22,7 +22,7 @@ const router = createBrowserRouter([
       {
         path: "/news",
         element: <NewsLayout />,
-        action: actions.saveNews,
+        // action: actions.saveNews,
         children: [
           {
             index: true,
