@@ -1,15 +1,5 @@
 {
-    "relatedProjects": [
-        "apps/api",
-        "apps/frontend"
-    ],
-    "functions": {
-        "api/*": {
-            "maxDuration": 10,
-            "memory": 1024,
-            "runtime": "nodejs22.x"
-        }
-    },
+    "outputDirectory": "/apps/frontend/public",
     "version": 2,
     "rewrites": [
         {
