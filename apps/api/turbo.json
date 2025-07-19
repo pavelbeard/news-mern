@@ -8,6 +8,8 @@
                 "PORT"
             ],
             "outputs": [
+                "public/**",
+                "build/**",
                 "dist/**"
             ]
         }

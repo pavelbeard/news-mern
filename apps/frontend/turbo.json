@@ -5,6 +5,8 @@
     "tasks": {
         "build": {
             "outputs": [
+                "public/**",
+                "build/**",
                 "dist/**"
             ]
         }
