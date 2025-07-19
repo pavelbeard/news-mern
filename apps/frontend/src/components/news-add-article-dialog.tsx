@@ -7,7 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
-import { useAddArticle } from "@/lib/hooks/news/use-add-article";
+import { useSaveNews } from "@/lib/hooks/news/use-save-news";
 import {
   Form,
   FormControl,
@@ -25,7 +25,7 @@ export default function NewsAddArticleDialog({
 }: {
   className?: string;
 }) {
-  const { form, onSubmit, isOpen, setIsOpen } = useAddArticle();
+  const { form, onSubmit, isOpen, setIsOpen } = useSaveNews();
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

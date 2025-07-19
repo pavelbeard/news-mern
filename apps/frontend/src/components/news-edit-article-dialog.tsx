@@ -18,7 +18,7 @@ import {
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import DatePicker from "./ui/date-picker";
-import { useEditArticle } from "@/lib/hooks/news/use-edit-article";
+import { useEditNews } from "@/lib/hooks/news/use-edit-news";
 import { useLoaderData } from "react-router";
 import { INewsObject__Database } from "@/lib/types/news";
 
@@ -29,7 +29,7 @@ export default function NewsEditArticleDialog({
 }) {
   const data = useLoaderData<INewsObject__Database>();
   const { _id, ...defaultData } = data.object;
-  const { form, onSubmit, isOpen, setIsOpen } = useEditArticle(
+  const { form, onSubmit, isOpen, setIsOpen } = useEditNews(
     defaultData as INewsObject__Database["object"]
   );
 

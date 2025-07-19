@@ -17,7 +17,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        loader: loaders.getLastNews,
+        // loader: loaders.getLastNews,
       },
       {
         path: "/news",

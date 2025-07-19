@@ -1,13 +1,13 @@
-import { INewsObject__Database } from "@/lib/types/news";
-import { Link, useLoaderData } from "react-router";
+import { Link } from "react-router";
 import { Button } from "./ui/button";
 import { createNewsURL } from "@/utils/create-news-url";
 import { format } from "date-fns";
 import Placeholder from "@/assets/placeholder.png";
+import { useGetLastNews } from "@/lib/hooks/news/use-get-last-news";
 
 // PORTADA
 export default function Home() {
-  const data = useLoaderData<INewsObject__Database>();
+  const { data } = useGetLastNews();
 
   if (!data?.object) {
     return (

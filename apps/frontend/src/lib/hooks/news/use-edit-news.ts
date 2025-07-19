@@ -8,9 +8,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useParams, useSubmit } from "react-router";
 
-export const useEditArticle = (
-  defaultData: INewsObject__Database["object"]
-) => {
+export const useEditNews = (defaultData: INewsObject__Database["object"]) => {
   const params = useParams();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);

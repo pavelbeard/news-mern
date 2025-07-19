@@ -1,158 +1,87 @@
 import {
   newsArchiveSchema,
   NewsArchiveSchemaType,
-  newsCreateSchema,
+  NewsCreateSchemaType,
   newsUpdateSchema,
   NewsUpdateSchemaType,
 } from "@/lib/schemas/news.schemas";
 import {
-  INews,
   INewsObject__Database,
   INewsObjects__Database,
 } from "@/lib/types/news";
+import { ApiClient } from "@/utils/api-client";
 import { createUrl } from "@/utils/create-url";
-import axios from "axios";
 
 // CREATE
-export const saveNews = async (data: INews): Promise<INewsObject__Database> => {
-  const validatedData = await newsCreateSchema.safeParseAsync(data);
-
-  if (!validatedData.success) {
-    throw new Error("Invalid data: ", validatedData.error);
-  }
-
-  const response = await axios.post(createUrl("news"), data, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (response.status !== 201) {
-    throw new Error(response.statusText);
-  }
-
-  return response.data;
+export const saveNews = async (
+  data: NewsCreateSchemaType
+): Promise<INewsObject__Database> => {
+  const response = await ApiClient.post(createUrl("news"), data);
+  return response;
 };
 
 // READ
 export const getAllNews = async (): Promise<INewsObjects__Database> => {
-  const response = await axios.get(createUrl("news"), {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (response.status !== 200) {
-    throw new Error(response.statusText);
-  }
-
-  return response.data;
+  const response = await ApiClient.get(createUrl("news"));
+  return response;
 };
 
 export const getAllArchiveNews = async (): Promise<INewsObjects__Database> => {
-  const response = await axios.get(createUrl("news-archive"), {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (response.status !== 200) {
-    throw new Error(response.statusText);
-  }
-
-  return response.data;
+  const response = await ApiClient.get(createUrl("news-archive"));
+  return response;
 };
 
 export const getNewsById = async (
   _id: string
 ): Promise<INewsObject__Database> => {
-  const response = await axios.get(createUrl("news", _id), {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (response.status !== 200) {
-    throw new Error(response.statusText);
-  }
-
-  return response.data;
+  const response = await ApiClient.get(createUrl("news", _id));
+  return response as INewsObject__Database;
 };
 
 export const getLastNews = async (): Promise<INewsObject__Database> => {
-  const response = await axios.get(createUrl("news-last"), {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await ApiClient.get(createUrl("news-last"));
 
-  if (response.status !== 200) {
-    throw new Error(response.statusText);
-  }
-
-  return response.data;
+  return response as INewsObject__Database;
 };
 
 // UPDATE
 
-export const updateNews = async (data: NewsUpdateSchemaType) => {
+export const updateNews = async (
+  data: NewsUpdateSchemaType
+): Promise<INewsObject__Database> => {
   const validatedData = await newsUpdateSchema.safeParseAsync(data);
 
   if (!validatedData.success) {
     throw new Error("Invalid data: ", validatedData.error);
   }
 
-  const response = await axios.put(
+  const response = await ApiClient.put(
     createUrl("news", validatedData.data._id),
-    validatedData.data.data,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
+    validatedData.data.data
   );
 
-  if (response.status !== 200) {
-    throw new Error(response.statusText);
-  }
-
-  return response.data;
+  return response;
 };
 
-export const setArchiveNews = async (data: NewsArchiveSchemaType) => {
+export const setArchiveNews = async (
+  data: NewsArchiveSchemaType
+): Promise<INewsObject__Database> => {
   const validatedData = await newsArchiveSchema.safeParseAsync(data);
 
   if (!validatedData.success) {
     throw new Error("Invalid data: ", validatedData.error);
   }
 
-  const response = await axios.patch(
+  const response = await ApiClient.patch(
     createUrl("news", validatedData.data._id),
-    validatedData.data,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
+    validatedData.data
   );
 
-  if (response.status !== 200) {
-    throw new Error(response.statusText);
-  }
-
-  return response.data;
+  return response;
 };
 
 // DELETE
 
 export const deleteNews = async (_id: string) => {
-  const response = await axios.delete(createUrl("news", _id), {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (response.status !== 200) {
-    throw new Error(response.statusText);
-  }
+  await ApiClient.delete(createUrl("news", _id));
 };
