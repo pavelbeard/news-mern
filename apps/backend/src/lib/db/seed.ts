@@ -237,7 +237,7 @@ Manufacturers aim to integrate the battery into consumer products by 2026.`,
 
 async function main() {
   try {
-    client(
+    await client(
       process.env.MONGODB_URL ??
         "mongodb://admin:admin@localhost:27018/?authSource=admin"
     )
@@ -257,5 +257,4 @@ async function main() {
 
 main()
   .then()
-  .catch(() => console.error("Error while seeding database"))
-  .finally(process.exit());
+  .catch(() => console.error("Error while seeding database"));
