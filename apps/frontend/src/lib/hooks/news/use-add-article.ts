@@ -22,10 +22,14 @@ export const useAddArticle = () => {
   const submit = useSubmit();
 
   const onSubmit = (validatedData: NewsCreateSchemaType) => {
-    submit(validatedData, {
+    const formData = new FormData();
+    for (const [k, v] of Object.entries(validatedData)) {
+      formData.set(k, String(v));
+    }
+
+    submit(formData, {
       method: "POST",
       action: "/news",
-      encType: "application/json",
     });
 
     setIsOpen(false);

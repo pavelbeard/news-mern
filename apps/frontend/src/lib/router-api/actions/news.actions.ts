@@ -1,11 +1,19 @@
 import * as newsQueries from "@/lib/api/queries/news.queries";
 import { withErrorHandler } from "@/lib/app-error-handler";
+import { newsCreateSchema } from "@/lib/schemas/news.schemas";
+import { parseFormData } from "@/utils/parse-form-data";
 import { ActionFunctionArgs, Params } from "react-router";
 
 export const saveNews = withErrorHandler(
   async ({ request }: ActionFunctionArgs) => {
-    const data = await request.json();
-    return await newsQueries.saveNews(data);
+    const parsedData = await parseFormData(request);
+    const validatedData = await newsCreateSchema.safeParseAsync(parsedData);
+
+    if (validatedData.error) {
+      throw new Error(validatedData.error.message);
+    }
+
+    return await newsQueries.saveNews(validatedData?.data);
   }
 );
 
