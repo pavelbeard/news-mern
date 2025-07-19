@@ -85,8 +85,8 @@ export default function NewsPage() {
   }
 
   return (
-    <div className="place-self-center flex flex-col items-center gap-4">
-      <header className="text-2xl font-bold">Nothing there</header>
+    <div className="place-self-center flex flex-col py-4 px-8 mt-4 items-center gap-4 bg-amber-300 rounded-2xl">
+      <header className="text-3xl font-bold">Nothing here</header>
       {!isNewsArchive && <NewsAddArticleDialog />}
     </div>
   );

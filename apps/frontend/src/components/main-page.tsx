@@ -9,6 +9,14 @@ import Placeholder from "@/assets/placeholder.png";
 export default function Home() {
   const data = useLoaderData<INewsObject__Database>();
 
+  if (!data?.object) {
+    return (
+      <section className="place-self-center py-4 px-8 mt-8 bg-amber-300 rounded-2xl">
+        <h1 className="text-3xl font-bold">There is no news.</h1>
+      </section>
+    );
+  }
+
   return (
     <section className="place-self-center relative max-w-[600px] p-4 mt-8 rounded-lg bg-amber-300/45 ">
       <article
@@ -19,7 +27,9 @@ export default function Home() {
           maskPosition: "top",
         }}
       >
-        <h1 data-testid="title" className="text-3xl font-bold">{data.object.title}</h1>
+        <h1 data-testid="title" className="text-3xl font-bold">
+          {data.object.title}
+        </h1>
         <img src={Placeholder} alt="news-image-main" width={800} />
         <div className="flex items-end gap-2">
           <h2 className="text-xl font-semibold">{data.object.author}</h2>

@@ -3,8 +3,12 @@ import { withErrorHandler } from "@/lib/app-error-handler";
 import { ActionFunctionArgs } from "react-router";
 
 export const getLastNews = withErrorHandler(async () => {
-  const data = await newsQueries.getLastNews();
-  return data;
+  try {
+    const data = await newsQueries.getLastNews();
+    return data;
+  } catch {
+    return null;
+  }
 });
 
 export const getAllNews = withErrorHandler(async () => {

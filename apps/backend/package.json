@@ -11,7 +11,8 @@
     "check-types": "tsc --noEmit",
     "test:unit": "vitest --project unit",
     "test:int": "vitest --project int",
-    "seed": "tsx ./src/lib/db/seed.ts"
+    "seed": "tsx ./src/lib/db/seed.ts",
+    "reset-db": "tsx ./src/lib/db/reset-db.ts"
   },
   "dependencies": {
     "@types/express": "^5.0.3",
