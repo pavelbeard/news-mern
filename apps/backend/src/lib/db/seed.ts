@@ -243,17 +243,25 @@ Manufacturers aim to integrate the battery into consumer products by 2026.`,
       },
     ];
 
-    client("mongodb://admin:admin@localhost:27018/?authSource=admin")
+    client(
+      process.env.MONGODB_URL ??
+        "mongodb://admin:admin@localhost:27018/?authSource=admin"
+    )
       .then(() => console.log("Connected to database."))
       .catch(() => console.error("Error while connecting to database."));
 
-    await News.bulkSave(newsArticles.map((n) => new News({ ...n })));
+    if (!News.exists({ title: newsArticles[0]?.title })) {
+      await News.bulkSave(newsArticles.map((n) => new News({ ...n })));
+      return console.log("Database is seeded");
+    }
+
+    return console.log("Seed already exists. Skipping...");
   } catch (e) {
     console.error(e);
   }
 }
 
 main()
-  .then(() => console.log("Database is seeded"))
+  .then()
   .catch(() => console.error("Error while seeding database"))
   .finally(process.exit());
