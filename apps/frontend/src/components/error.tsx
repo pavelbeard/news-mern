@@ -6,10 +6,10 @@ enum ErrorStatus {
   "INTERNAL SERVER ERROR" = 500,
 }
 
-enum AxiosErrorMessage {
-  "Bad request" = 400,
-  "News not found" = 404,
-}
+// enum ErrorMessage {
+//   "Bad request" = 400,
+//   "News not found" = 404,
+// }
 
 enum AppErrorMessage {
   "Page not found" = 404,
