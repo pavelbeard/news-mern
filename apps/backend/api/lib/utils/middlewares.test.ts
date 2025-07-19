@@ -3,7 +3,7 @@ import {
   newsCreateSchema,
   newsReadSchema,
   newsUpdateSchema,
-} from "@/features/news/news.schema";
+} from "api/features/news/news.schema";
 import type { Request, Response } from "express";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { AppError } from "./appError";

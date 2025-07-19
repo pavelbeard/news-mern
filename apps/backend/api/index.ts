@@ -1,4 +1,4 @@
-import { PORT } from "@/lib/constants";
+import { PORT } from "api/lib/constants";
 import cors from "cors";
 import express, { json } from "express";
 import router from "./features/api";

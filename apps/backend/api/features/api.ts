@@ -1,4 +1,4 @@
-import { API_V1 } from "@/lib/constants";
+import { API_V1 } from "api/lib/constants";
 import { Router } from "express";
 import { newsRouter } from "./news/news.router";
 
