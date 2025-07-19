@@ -1,4 +1,1 @@
-{
-    "buildCommand": "turbo run build --filter=backend",
-    "outputDirectory": "dist"
-}
+{ "version": 2, "rewrites": [{ "source": "/(.*)", "destination": "/src" }] }
