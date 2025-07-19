@@ -6,7 +6,8 @@
   ],
   "globalEnv": [
     "MONGODB_URL",
-    "ALLOWED_ORIGINS"
+    "ALLOWED_ORIGINS",
+    "VITE_BACKEND_URL"
   ],
   "tasks": {
     "build": {
