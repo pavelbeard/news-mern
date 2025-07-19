@@ -1,6 +1,9 @@
 {
   "$schema": "https://turborepo.com/schema.json",
   "ui": "tui",
+  "globalDependencies": [
+    "**/.env.*local"
+  ],
   "globalEnv": [
     "MONGODB_URL",
     "ALLOWED_ORIGINS"
@@ -44,17 +47,11 @@
       ]
     },
     "check-types": {
-      "dependsOn": [
-        "^build",
-        "^check-types"
-      ]
+      "dependsOn": []
     },
     "dev": {
       "cache": false,
-      "persistent": true,
-      "dependsOn": [
-        "^dev"
-      ]
+      "persistent": true
     }
   }
 }
