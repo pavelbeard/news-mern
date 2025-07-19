@@ -246,12 +246,15 @@ async function main() {
 
     if (!News.exists({ title: newsArticles[0]?.title })) {
       await News.bulkSave(newsArticles.map((n) => new News({ ...n })));
-      return console.log("Database is seeded");
+      console.log("Database is seeded");
+      return process.exit(0);
     }
 
-    return console.log("Seed already exists. Skipping...");
+    console.log("Seed already exists. Skipping...");
+    return process.exit(0);
   } catch (e) {
     console.error(e);
+    return process.exit(1);
   }
 }
 
