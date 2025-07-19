@@ -30,15 +30,21 @@ const router = createBrowserRouter([
           },
           {
             path: "id/:_id/title/:title",
-            lazy: {
-              Component: async () =>
-                (await import("@/components/news-article-page")).default,
-              loader: async () =>
-                (await import("@/lib/router-api/loaders/news.loaders"))
-                  .getNewsById,
-              action: async () =>
-                (await import("@/lib/router-api/actions/news.actions"))
-                  .updateNews,
+            lazy: async () => {
+              const newsArticlePage = await import(
+                "@/components/news-article-page"
+              );
+              const actions = await import(
+                "@/lib/router-api/actions/news.actions"
+              );
+              const loaders = await import(
+                "@/lib/router-api/loaders/news.loaders"
+              );
+              return {
+                element: <newsArticlePage.default />,
+                loader: loaders.getNewsById,
+                action: actions.updateNews,
+              };
             },
           },
         ],
@@ -49,25 +55,36 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            lazy: {
-              Component: async () =>
-                (await import("@/components/news-page")).default,
-              loader: async () =>
-                (await import("@/lib/router-api/loaders/news.loaders"))
-                  .getAllArchiveNews,
+            lazy: async () => {
+              const newsPage = await import("@/components/news-page");
+              const loaders = await import(
+                "@/lib/router-api/loaders/news.loaders"
+              );
+
+              return {
+                element: <newsPage.default />,
+                loader: loaders.getAllArchiveNews,
+              };
             },
           },
           {
             path: "id/:_id/title/:title",
-            lazy: {
-              Component: async () =>
-                (await import("@/components/news-article-page")).default,
-              loader: async () =>
-                (await import("@/lib/router-api/loaders/news.loaders"))
-                  .getNewsById,
-              action: async () =>
-                (await import("@/lib/router-api/actions/news.actions"))
-                  .archiveNewsAction,
+            lazy: async () => {
+              const newsArticlePage = await import(
+                "@/components/news-article-page"
+              );
+              const actions = await import(
+                "@/lib/router-api/actions/news.actions"
+              );
+              const loaders = await import(
+                "@/lib/router-api/loaders/news.loaders"
+              );
+
+              return {
+                element: <newsArticlePage.default />,
+                action: actions.archiveNewsAction,
+                loader: loaders.getNewsById,
+              };
             },
           },
         ],
