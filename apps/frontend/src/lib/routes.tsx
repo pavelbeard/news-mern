@@ -6,6 +6,7 @@ import NewsPage from "@/components/news-page";
 import Error from "@/components/error";
 import * as loaders from "./router-api/loaders/news.loaders";
 import * as actions from "./router-api/actions/news.actions";
+import NewsArticlePage from "@/components/news-article-page";
 
 const router = createBrowserRouter([
   {
@@ -30,22 +31,9 @@ const router = createBrowserRouter([
           },
           {
             path: "id/:_id/title/:title",
-            lazy: async () => {
-              const newsArticlePage = await import(
-                "@/components/news-article-page"
-              );
-              const actions = await import(
-                "@/lib/router-api/actions/news.actions"
-              );
-              const loaders = await import(
-                "@/lib/router-api/loaders/news.loaders"
-              );
-              return {
-                element: <newsArticlePage.default />,
-                loader: loaders.getNewsById,
-                action: actions.updateNews,
-              };
-            },
+            element: <NewsPage />,
+            loader: loaders.getNewsById,
+            action: actions.updateNews,
           },
         ],
       },
@@ -55,37 +43,14 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            lazy: async () => {
-              const newsPage = await import("@/components/news-page");
-              const loaders = await import(
-                "@/lib/router-api/loaders/news.loaders"
-              );
-
-              return {
-                element: <newsPage.default />,
-                loader: loaders.getAllArchiveNews,
-              };
-            },
+            element: <NewsPage />,
+            loader: loaders.getAllArchiveNews,
           },
           {
             path: "id/:_id/title/:title",
-            lazy: async () => {
-              const newsArticlePage = await import(
-                "@/components/news-article-page"
-              );
-              const actions = await import(
-                "@/lib/router-api/actions/news.actions"
-              );
-              const loaders = await import(
-                "@/lib/router-api/loaders/news.loaders"
-              );
-
-              return {
-                element: <newsArticlePage.default />,
-                action: actions.archiveNewsAction,
-                loader: loaders.getNewsById,
-              };
-            },
+            element: <NewsArticlePage />,
+            loader: loaders.getNewsById,
+            action: actions.archiveNewsAction,
           },
         ],
       },
