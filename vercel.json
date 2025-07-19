@@ -1,5 +1,5 @@
 {
-    "outputDirectory": "/apps/frontend/public",
+    "outputDirectory": "/apps/frontend/dist",
     "version": 2,
     "rewrites": [
         {

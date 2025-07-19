@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "vite build --outDir public",
+    "build": "vite build",
     "dev": "vite",
     "lint": "oxlint --fix",
     "check-types": "tsc --noEmit",
