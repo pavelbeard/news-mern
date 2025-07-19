@@ -15,17 +15,17 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: Home,
+        element: <Home />,
         loader: loaders.getLastNews,
       },
       {
         path: "/news",
-        Component: NewsLayout,
+        element: <NewsLayout />,
         action: actions.saveNews,
         children: [
           {
             index: true,
-            Component: NewsPage,
+            element: <NewsPage />,
             loader: loaders.getAllNews,
           },
           {
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/news-archive",
-        Component: NewsLayout,
+        element: <NewsLayout />,
         children: [
           {
             index: true,
