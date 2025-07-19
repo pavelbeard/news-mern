@@ -1,27 +1,21 @@
 import { PORT } from "@/lib/constants";
-import cors from "cors";
 import express, { Application, json } from "express";
 import router from "./src/features/api";
 import { client } from "./src/lib/db/client";
-import { ALLOWED_ORIGINS } from "./src/lib/settings";
-import {
-  errorFallbackMiddleware,
-  logger,
-  originResolver,
-} from "./src/lib/utils/middlewares";
+import { errorFallbackMiddleware, logger } from "./src/lib/utils/middlewares";
 
 const app: Application = express();
 
 app
   .disable("x-powered-by")
   .use(json())
-  .use(
-    cors({
-      credentials: true,
-      origin: (origin, callback) =>
-        originResolver(ALLOWED_ORIGINS, origin, callback),
-    })
-  )
+  // .use(
+  //   cors({
+  //     credentials: true,
+  //     origin: (origin, callback) =>
+  //       originResolver(ALLOWED_ORIGINS, origin, callback),
+  //   })
+  // )
   .use(logger)
   .get("/status", (_, res) => {
     return res.json({ ok: true });
