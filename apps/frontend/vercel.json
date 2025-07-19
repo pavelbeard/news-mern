@@ -1,4 +1,10 @@
 {
     "buildCommand": "turbo run build --filter=frontend",
-    "outputDirectory": "dist"
+    "outputDirectory": "dist",
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/"
+        }
+    ],
 }
