@@ -14,5 +14,8 @@
     "lint": "turbo run lint",
     "prettier": "prettier --write \"**/*.{ts,tsx,json}\""
   },
-  "packageManager": "pnpm@10.13.1"
+  "packageManager": "pnpm@10.13.1",
+  "engines": {
+    "node": ">=18"
+  }
 }
