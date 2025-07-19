@@ -1,6 +1,7 @@
 import { PORT } from "@/lib/constants";
 import cors from "cors";
 import express, { json } from "express";
+import serverlesshttp from "serverless-http";
 import router from "./src/features/api";
 import { client } from "./src/lib/db/client";
 import { ALLOWED_ORIGINS } from "./src/lib/settings";
@@ -38,3 +39,5 @@ app.use(errorFallbackMiddleware);
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+export const handler = serverlesshttp(app);
