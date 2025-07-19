@@ -1,13 +1,16 @@
 {
   "name": "frontend",
-  "private": true,
   "version": "0.0.0",
   "type": "module",
+  "private": true,
   "scripts": {
-    "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "ts-standard --fix",
-    "preview": "vite preview"
+    "dev": "vite",
+    "lint": "oxlint --fix",
+    "check-types": "tsc --noEmit",
+    "test:unit": "vitest --project unit",
+    "test:int": "vitest --project int",
+    "test:ui": "vitest --project ui"
   },
   "dependencies": {
     "@faker-js/faker": "^9.9.0",

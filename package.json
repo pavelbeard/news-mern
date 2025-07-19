@@ -8,9 +8,10 @@
     "typescript": "^5.8.3"
   },
   "scripts": {
-    "dev": "turbo run dev",
     "build": "turbo run build",
-    "serve": "turbo run serve",
+    "clean": "turbo run clean",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
     "prettier": "prettier --write \"**/*.{ts,tsx,json}\""
   },
   "packageManager": "pnpm@10.13.1"

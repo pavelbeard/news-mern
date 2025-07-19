@@ -1,39 +1,31 @@
 import { PORT } from "@/lib/constants";
-import cookieParser from "cookie-parser";
 import cors from "cors";
-import type { NextFunction, Request, Response } from "express";
-import express from "express";
+import express, { json } from "express";
 import router from "./features/api";
 import { client } from "./lib/db/client";
 import { ALLOWED_ORIGINS } from "./lib/settings";
 import {
   errorFallbackMiddleware,
+  logger,
   originResolver,
 } from "./lib/utils/middlewares";
 
 const app = express();
 
-// third party
-app.use([
-  express.json(),
-  cookieParser(),
-  cors({
-    credentials: true,
-    origin: (origin, callback) =>
-      originResolver(ALLOWED_ORIGINS, origin, callback),
-  }),
-  // logger
-  (req: Request, res: Response, next: NextFunction) => {
-    const time = new Date().toISOString();
-    console.log(
-      `[${req.method}]:`,
-      `$host=${req.hostname}`,
-      `$path=${req.path}`,
-      time
-    );
-    next();
-  },
-]);
+app
+  .disable("x-powered-by")
+  .use(json())
+  .use(
+    cors({
+      credentials: true,
+      origin: (origin, callback) =>
+        originResolver(ALLOWED_ORIGINS, origin, callback),
+    })
+  )
+  .use(logger)
+  .get("/status", (_, res) => {
+    return res.json({ ok: true });
+  });
 
 client()
   .then(() => console.log("Connected to database"))

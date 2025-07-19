@@ -1,9 +1,8 @@
 import { readFileSync } from "fs";
 import { createRoutesStub } from "react-router";
 import { vi, describe, it, beforeEach, afterEach } from "vitest";
-import { render, waitFor, screen } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import Home from "@/components/main-page";
-import App from "@/App";
 
 function dummyData() {
   const data = readFileSync(

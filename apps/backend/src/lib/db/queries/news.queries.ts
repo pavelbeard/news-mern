@@ -85,7 +85,7 @@ export const updateNewsById = async (
   );
 };
 
-export const setNewsArchived = async (_id: string, archiveDate: Date) => {
+export const setNewsArchived = async (_id: string, archiveDate: string) => {
   return await News.findByIdAndUpdate(
     _id,
     { $set: { archiveDate } },

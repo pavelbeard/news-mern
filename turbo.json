@@ -5,6 +5,49 @@
     "**/.env.*local"
   ],
   "tasks": {
+    "build": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*"
+      ],
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "build/**",
+        "dist/**"
+      ]
+    },
+    "test:unit": {
+      "dependsOn": [],
+      "outputs": [
+        "coverage/**"
+      ]
+    },
+    "test:int": {
+      "dependsOn": [],
+      "outputs": [
+        "coverage/**"
+      ]
+    },
+    "frontend#test:ui": {
+      "dependsOn": [],
+      "outputs": [
+        "coverage/**"
+      ]
+    },
+    "lint": {
+      "dependsOn": [
+        "^build",
+        "^lint"
+      ]
+    },
+    "check-types": {
+      "dependsOn": [
+        "^build",
+        "^check-types"
+      ]
+    },
     "dev": {
       "cache": false,
       "persistent": true,
@@ -14,14 +57,6 @@
       "env": [
         "MONGODB_USER",
         "MONGODB_PASSWORD"
-      ]
-    },
-    "frontend#build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        "dist/**"
       ]
     }
   }

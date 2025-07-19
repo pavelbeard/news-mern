@@ -3,6 +3,17 @@ import { NextFunction, Request, type Response } from "express";
 import { ZodError, type ZodObject } from "zod";
 import { AppError } from "./appError";
 
+export const logger = (req: Request, res: Response, next: NextFunction) => {
+  const time = new Date().toISOString();
+  console.log(
+    `[${req.method}]:`,
+    `$host=${req.hostname}`,
+    `$path=${req.path}`,
+    time
+  );
+  next();
+};
+
 export const originResolver = (
   allowedOrigins: string[],
   origin: string | undefined,
