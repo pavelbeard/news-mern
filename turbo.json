@@ -4,6 +4,11 @@
   "globalDependencies": [
     "**/.env.*local"
   ],
+  "globalEnv": [
+    "$TURBO_DEFAULT$",
+    "MONGODB_URL",
+    "ALLOWED_ORIGINS"
+  ],
   "tasks": {
     "build": {
       "inputs": [
