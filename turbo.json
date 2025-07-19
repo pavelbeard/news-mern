@@ -53,10 +53,6 @@
       "persistent": true,
       "dependsOn": [
         "^dev"
-      ],
-      "env": [
-        "MONGODB_USER",
-        "MONGODB_PASSWORD"
       ]
     }
   }
