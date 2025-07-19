@@ -3,6 +3,7 @@
         "apps/api",
         "apps/frontend"
     ],
+    "outputDirectory": "dist",
     "functions": {
         "api/*": {
             "maxDuration": 10,
