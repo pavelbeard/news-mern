@@ -3,25 +3,14 @@ import express, { json } from "express";
 import router from "../src/features/api";
 import { PORT } from "../src/lib/constants";
 import { client } from "../src/lib/db/client";
-import { ALLOWED_ORIGINS } from "../src/lib/settings";
-import {
-  errorFallbackMiddleware,
-  logger,
-  originResolver,
-} from "../src/lib/utils/middlewares";
+import { errorFallbackMiddleware, logger } from "../src/lib/utils/middlewares";
 
 const app = express();
 
 app
   .disable("x-powered-by")
   .use(json())
-  .use(
-    cors({
-      credentials: true,
-      origin: (origin, callback) =>
-        originResolver(ALLOWED_ORIGINS, origin, callback),
-    })
-  )
+  .use(cors())
   .use(logger)
   .get("/health", (_, res) => {
     return res.json({ ok: { message: "root API is healthy" } });
