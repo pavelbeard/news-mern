@@ -1,10 +1,10 @@
+import type { Request, Response } from "express";
 import {
   newsArchiveSchema,
   newsCreateSchema,
   newsReadSchema,
   newsUpdateSchema,
-} from "api/features/news/news.schema";
-import type { Request, Response } from "express";
+} from "src/features/news/news.schema";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { AppError } from "./appError";
 import {

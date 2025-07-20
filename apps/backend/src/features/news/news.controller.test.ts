@@ -1,8 +1,8 @@
-import { News } from "api/lib/db/models/news.models";
-import * as newsQueries from "api/lib/db/queries/news.queries";
-import { AppError } from "api/lib/utils/appError";
 import type { Response } from "express";
 import mongoose from "mongoose";
+import { News } from "src/lib/db/models/news.models";
+import * as newsQueries from "src/lib/db/queries/news.queries";
+import { AppError } from "src/lib/utils/appError";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   NewsArchiveRequest,

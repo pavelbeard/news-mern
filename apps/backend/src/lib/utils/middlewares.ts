@@ -1,5 +1,5 @@
-import { StaticOrigin } from "api/types";
 import { NextFunction, Request, type Response } from "express";
+import { StaticOrigin } from "src/types";
 import { ZodError, type ZodObject } from "zod";
 import { AppError } from "./appError";
 

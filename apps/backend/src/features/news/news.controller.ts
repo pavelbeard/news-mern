@@ -1,6 +1,6 @@
-import * as newsQueries from "api/lib/db/queries/news.queries";
-import { AppError } from "api/lib/utils/appError";
 import type { NextFunction, Request, Response } from "express";
+import * as newsQueries from "src/lib/db/queries/news.queries";
+import { AppError } from "src/lib/utils/appError";
 import type {
   NewsArchiveSchemaType,
   NewsCreateSchemaType,

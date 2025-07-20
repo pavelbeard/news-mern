@@ -1,5 +1,5 @@
-import { API_V1 } from "api/lib/constants";
 import { Router } from "express";
+import { API_V1 } from "src/lib/constants";
 import { newsRouter } from "./news/news.router";
 
 const router: Router = Router();

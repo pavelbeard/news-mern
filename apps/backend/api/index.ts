@@ -1,15 +1,15 @@
-import { PORT } from "api/lib/constants";
 import cors from "cors";
 import express, { Application, json } from "express";
-import router from "./features/api";
-import { client } from "./lib/db/client";
-import { ALLOWED_ORIGINS } from "./lib/settings";
-import { isDevelopment } from "./lib/utils/isDevelopment";
+import { PORT } from "src/lib/constants";
+import router from "../src/features/api";
+import { client } from "../src/lib/db/client";
+import { ALLOWED_ORIGINS } from "../src/lib/settings";
+import { isDevelopment } from "../src/lib/utils/isDevelopment";
 import {
   errorFallbackMiddleware,
   logger,
   originResolver,
-} from "./lib/utils/middlewares";
+} from "../src/lib/utils/middlewares";
 
 const app: Application = express();
 
