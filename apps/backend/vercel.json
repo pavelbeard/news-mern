@@ -5,11 +5,5 @@
             "source": "/api(.*)",
             "destination": "/api/dist/index.js"
         }
-    ],
-    "functions": {
-        "api/dist/index.cjs": {
-            "maxDuration": 10,
-            "memory": 512
-        }
-    }
+    ]
 }
