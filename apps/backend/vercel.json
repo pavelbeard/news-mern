@@ -3,11 +3,11 @@
     "rewrites": [
         {
             "source": "/api(.*)",
-            "destination": "/api/index.ts"
+            "destination": "/api/serverless.ts"
         }
     ],
     "functions": {
-        "api/index.ts": {
+        "api/serverless.ts": {
             "maxDuration": 10,
             "memory": 512
         }
