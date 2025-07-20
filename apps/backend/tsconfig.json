@@ -19,7 +19,7 @@
     "noImplicitThis": true,
     /*Paths*/
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["api/*"]
     }
   }
 }

@@ -1,8 +1,8 @@
-import { PORT } from "@/lib/constants";
+import { PORT } from "api/lib/constants";
 import express, { Application, json } from "express";
-import router from "./src/features/api";
-import { client } from "./src/lib/db/client";
-import { errorFallbackMiddleware, logger } from "./src/lib/utils/middlewares";
+import router from "./features/api";
+import { client } from "./lib/db/client";
+import { errorFallbackMiddleware, logger } from "./lib/utils/middlewares";
 
 const app: Application = express();
 

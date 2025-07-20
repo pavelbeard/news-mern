@@ -1,7 +1,7 @@
 import {
   NewSchemaType,
   NewsUpdateSchemaType,
-} from "@/features/news/news.schema";
+} from "api/features/news/news.schema";
 import { News } from "../models/news.models";
 
 /*CREATE*/

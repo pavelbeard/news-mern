@@ -1,4 +1,4 @@
-import { schemaValidationMiddleware } from "@/lib/utils/middlewares";
+import { schemaValidationMiddleware } from "api/lib/utils/middlewares";
 import { Router } from "express";
 import { NewsController } from "./news.controller";
 import {
