@@ -4,6 +4,7 @@ import express, { Application, json } from "express";
 import router from "./features/api";
 import { client } from "./lib/db/client";
 import { ALLOWED_ORIGINS } from "./lib/settings";
+import { isDevelopment } from "./lib/utils/isDevelopment";
 import {
   errorFallbackMiddleware,
   logger,
@@ -35,6 +36,10 @@ app.use(router);
 
 app.use(errorFallbackMiddleware);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+if (isDevelopment()) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+}
+
+export default app;
