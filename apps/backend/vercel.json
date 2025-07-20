@@ -1,15 +1,17 @@
 {
-    "version": 2,
-    "rewrites": [
-        {
-            "source": "/api(.*)",
-            "destination": "/api/serverless.ts"
-        }
-    ],
     "functions": {
         "api/serverless.ts": {
+            "memory": 1024,
             "maxDuration": 10,
-            "memory": 512
+            "includeFiles": "{{src,public}/**,{src,public}/**/**,package.json,node_modules/{ajv,apicache,axios,compression,cors,dotenv,express,express-jwt}/**,node_modules/{ajv,apicache,axios,compression,cors,dotenv,express,express-jwt}/**/**,}",
+            "excludeFiles": "{src/**/*.test.ts,src/**/**/.test.ts}"
         }
-    }
+    },
+    "trailingSlash": true,
+    "rewrites": [
+        {
+            "source": "/api/(.*)",
+            "destination": "api/serverless.ts"
+        }
+    ]
 }
