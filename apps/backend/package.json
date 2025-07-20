@@ -12,7 +12,7 @@
     "check-types": "tsc --noEmit",
     "test:unit": "vitest --project unit",
     "test:int": "vitest --project int",
-    "seed": "tsx ./api/lib/db/seed.ts",
+    "seed": "dotenvx run -- tsx ./api/lib/db/seed.ts",
     "reset-db": "tsx ./api/lib/db/reset-db.ts"
   },
   "dependencies": {

@@ -1,5 +1,8 @@
+import dotenvx from "@dotenvx/dotenvx";
 import viteTsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
+
+dotenvx.config({ path: ".env.local" });
 
 export default defineConfig({
   plugins: [viteTsconfigPaths()],
@@ -13,6 +16,7 @@ export default defineConfig({
           alias: {
             queries: "/api/lib/db/queries",
           },
+          env: { ...process.env },
         },
       },
     ],

@@ -235,7 +235,7 @@ Manufacturers aim to integrate the battery into consumer products by 2026.`,
   },
 ];
 
-async function main() {
+export async function main() {
   try {
     await client(
       process.env.MONGODB_URL ??
@@ -244,7 +244,9 @@ async function main() {
       .then(() => console.log("Connected to database."))
       .catch(() => console.error("Error while connecting to database."));
 
-    if (!News.exists({ title: newsArticles[0]?.title })) {
+    const existingNews = await News.find({ title: newsArticles[0]?.title });
+
+    if (existingNews.length === 0) {
       await News.bulkSave(newsArticles.map((n) => new News({ ...n })));
       console.log("Database is seeded");
       return process.exit(0);
@@ -253,6 +255,10 @@ async function main() {
     console.log("Seed already exists. Skipping...");
     return process.exit(0);
   } catch (e) {
+    if (e instanceof Error && e.message.includes('with "0"')) {
+      return;
+    }
+
     console.error(e);
     return process.exit(1);
   }
