@@ -1,9 +1,9 @@
 import type { Response } from "express";
 import mongoose from "mongoose";
-import { News } from "src/lib/db/models/news.models";
-import * as newsQueries from "src/lib/db/queries/news.queries";
-import { AppError } from "src/lib/utils/appError";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { News } from "../../lib/db/models/news.models";
+import * as newsQueries from "../../lib/db/queries/news.queries";
+import { AppError } from "../../lib/utils/appError";
 import {
   NewsArchiveRequest,
   NewsController,
@@ -53,7 +53,7 @@ describe("News controller", () => {
         new AppError("BAD_REQUEST", "There is no body.")
       );
 
-      const calledNext = next.mock.calls[0]?.at(0);
+      const calledNext = next.mock.calls[0][0];
 
       expect(calledNext).toBeInstanceOf(AppError);
       expect(calledNext.message).toBe("There is no body.");
@@ -79,7 +79,7 @@ describe("News controller", () => {
 
       expect(next).toBeCalled();
 
-      const calledNext = next.mock.calls[0]?.at(0);
+      const calledNext = next.mock.calls[0][0];
 
       expect(calledNext).toBeInstanceOf(AppError);
       expect(calledNext.message).toBe(
@@ -128,7 +128,7 @@ describe("News controller", () => {
 
       await NewsController.getNewsById(request, response, next);
 
-      const calledNext = next.mock.calls[0]?.at(0);
+      const calledNext = next.mock.calls[0][0];
 
       expect(next).toHaveBeenCalledWith(
         new AppError("NOT_FOUND", "News not found.")
@@ -179,7 +179,7 @@ describe("News controller", () => {
           new AppError("BAD_REQUEST", "There is no body.")
         );
 
-        const calledNext = next.mock.calls[0]?.at(0);
+        const calledNext = next.mock.calls[0][0];
 
         expect(calledNext).toBeInstanceOf(AppError);
         expect(calledNext.message).toBe("There is no body.");
@@ -213,7 +213,7 @@ describe("News controller", () => {
           )
         );
 
-        const calledNext = next.mock.calls[0]?.at(0);
+        const calledNext = next.mock.calls[0][0];
 
         expect(calledNext).toBeInstanceOf(AppError);
         expect(calledNext.message).toBe(
@@ -279,7 +279,7 @@ describe("News controller", () => {
           new AppError("BAD_REQUEST", "There is no body.")
         );
 
-        const calledNext = next.mock.calls[0]?.at(0);
+        const calledNext = next.mock.calls[0][0];
 
         expect(calledNext).toBeInstanceOf(AppError);
         expect(calledNext.message).toBe("There is no body.");
@@ -309,7 +309,7 @@ describe("News controller", () => {
           )
         );
 
-        const calledNext = next.mock.calls[0]?.at(0);
+        const calledNext = next.mock.calls[0][0];
 
         expect(calledNext).toBeInstanceOf(AppError);
         expect(calledNext.message).toBe(

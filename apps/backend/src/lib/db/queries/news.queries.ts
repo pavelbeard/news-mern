@@ -1,7 +1,7 @@
 import {
   NewSchemaType,
   NewsUpdateSchemaType,
-} from "src/features/news/news.schema";
+} from "../../../features/news/news.schema";
 import { News } from "../models/news.models";
 
 /*CREATE*/
@@ -51,7 +51,7 @@ export const getNewsById = async (_id: string) => {
 
 export const getNewsByTitle = async (title: string) => {
   return await News.findOne({
-    title: { $regex: title.replaceAll(/-/g, " "), $options: "i" },
+    title: { $regex: title.split(/-/g).join(" "), $options: "i" },
   });
 };
 

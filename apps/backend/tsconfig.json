@@ -1,25 +1,16 @@
 {
-  "extends": "@repo/typescript-config/backend.json",
-  "include": ["**/*.ts", "**/*.d.ts"],
-  "exclude": ["tests/**/*", "node_modules"],
+  "exclude": ["node_modules", "dist", "build"],
+  "include": ["src/**/*.ts", "./api/**/*.ts"],
   "compilerOptions": {
-    /*Emit*/
+    "target": "es2016",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "strict": false,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
     "noEmit": true,
-    /*Modules*/
-    "baseUrl": "./",
-    "types": ["node", "vitest/globals"],
-    "resolveJsonModule": true,
-    "allowImportingTsExtensions": true,
-    /*Type checking*/
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictPropertyInitialization": true,
-    "alwaysStrict": true,
-    "noImplicitThis": true,
-    /*Paths*/
-    "paths": {
-      "@/*": ["api/*"]
-    }
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDir": ".",
   }
 }

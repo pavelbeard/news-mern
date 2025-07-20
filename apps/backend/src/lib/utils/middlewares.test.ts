@@ -1,11 +1,11 @@
 import type { Request, Response } from "express";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   newsArchiveSchema,
   newsCreateSchema,
   newsReadSchema,
   newsUpdateSchema,
-} from "src/features/news/news.schema";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+} from "../../features/news/news.schema";
 import { AppError } from "./appError";
 import {
   errorFallbackMiddleware,

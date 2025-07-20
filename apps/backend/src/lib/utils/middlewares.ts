@@ -1,15 +1,16 @@
 import { NextFunction, Request, type Response } from "express";
-import { StaticOrigin } from "src/types";
 import { ZodError, type ZodObject } from "zod";
+import { StaticOrigin } from "../../types";
 import { AppError } from "./appError";
 
 export const logger = (req: Request, res: Response, next: NextFunction) => {
   const time = new Date().toISOString();
   console.log(
+    `MIDDLEWARE: `,
+    `[${time}]`,
     `[${req.method}]:`,
     `$host=${req.hostname}`,
-    `$path=${req.path}`,
-    time
+    `$path=${req.path}`
   );
   next();
 };

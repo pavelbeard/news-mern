@@ -2,9 +2,6 @@ services:
   int-db:
     image: mongo:latest
     container_name: int-db-news
-    environment:
-      - MONGODB_INITDB_ROOT_USERNAME=admin
-      - MONGODB_INITDB_ROOT_PASSWORD=admin
     ports:
       - "27018:27017"
     volumes:

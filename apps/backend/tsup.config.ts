@@ -1,9 +1,9 @@
-import { defineConfig, type Options } from "tsup";
+import { defineConfig, Options } from "tsup";
 
 export default defineConfig((options: Options) => ({
-  entry: ["api/**/*", "src/**/*"],
+  entry: ["api/**/*"],
   clean: true,
+  format: "cjs",
   target: "node22",
-  format: ["cjs"],
   ...options,
 }));

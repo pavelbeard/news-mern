@@ -237,10 +237,7 @@ Manufacturers aim to integrate the battery into consumer products by 2026.`,
 
 export async function main() {
   try {
-    await client(
-      process.env.MONGODB_URL ??
-        "mongodb://admin:admin@localhost:27018/?authSource=admin"
-    )
+    await client(process.env.MONGODB_URL ?? "mongodb://localhost:27018")
       .then(() => console.log("Connected to database."))
       .catch(() => console.error("Error while connecting to database."));
 
