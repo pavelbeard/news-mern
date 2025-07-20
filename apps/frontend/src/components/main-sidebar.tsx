@@ -38,26 +38,32 @@ export default function MainSidebar() {
     <Sidebar>
       <SidebarHeader />
       <SidebarContent>
-        <SidebarGroup>
-          <nav className="flex flex-col gap-2">
-            {items.map((i) => (
-              <NavLink
-                key={i.title}
-                to={{ pathname: i.pathname }}
-                className={({ isActive }) =>
-                  cn(
-                    "px-4 py-2 flex items-center gap-2",
-                    isActive
-                      ? "bg-black rounded-lg text-white shadow-lg shadow-gray-2500"
-                      : "bg-amber-300 rounded-2xl",
-                    "hover:rounded-2xl hover:bg-amber-300/65 transition-all"
-                  )
-                }
-              >
-                {i.icon}
-                <header>{i.title}</header>
-              </NavLink>
-            ))}
+        <SidebarGroup className="flex-1">
+          <nav className="flex flex-col h-full">
+            <div className="flex-1 flex flex-col gap-2">
+              {items.map((i) => (
+                <NavLink
+                  key={i.title}
+                  to={{ pathname: i.pathname }}
+                  className={({ isActive }) =>
+                    cn(
+                      "px-4 py-2 flex items-center gap-2",
+                      isActive
+                        ? "bg-black rounded-lg text-white shadow-lg shadow-gray-2500"
+                        : "bg-amber-300 rounded-2xl",
+                      "hover:rounded-2xl hover:bg-amber-300/65 transition-all"
+                    )
+                  }
+                >
+                  {i.icon}
+                  <header>{i.title}</header>
+                </NavLink>
+              ))}
+            </div>
+            <div className="flex-none bg-amber-500 h-24 rounded-2xl flex flex-col justify-center items-start p-4">
+              <p className="text-center">BACKEND URL:</p>
+              <p className="text-center">{import.meta.env.VITE_BACKEND_URL}</p>
+            </div>
           </nav>
         </SidebarGroup>
       </SidebarContent>
