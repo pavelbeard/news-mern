@@ -1,7 +1,7 @@
 import { defineConfig, type Options } from "tsup";
 
 export default defineConfig((options: Options) => ({
-  entry: ["src/**/*"],
+  entry: ["api/**/*"],
   clean: true,
   target: "node22",
   format: ["cjs"],
