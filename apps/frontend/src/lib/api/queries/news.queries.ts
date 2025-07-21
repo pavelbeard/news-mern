@@ -83,5 +83,5 @@ export const setArchiveNews = async (
 // DELETE
 
 export const deleteNews = async (_id: string) => {
-  await ApiClient.delete(createUrl("news", _id));
+  return await ApiClient.delete(createUrl("news", _id));
 };

@@ -27,8 +27,8 @@ export const useSaveNews = () => {
       return newsQueries.saveNews(validatedData);
     },
     onSuccess: () => {
-      setIsOpen(false);
       queryClient.invalidateQueries({ queryKey: ["news"] });
+      setIsOpen(false);
     },
   });
 

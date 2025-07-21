@@ -25,7 +25,7 @@ export const useEditNews = () => {
   });
 
   const mutation = useMutation({
-    mutationFn: async (data: NewsUpdateSchemaType) => {
+    mutationFn: (data: NewsUpdateSchemaType) => {
       return newsQueries.updateNews(data);
     },
     onSuccess: () => {

@@ -20,6 +20,8 @@ export const originResolver = (
   origin: string | undefined,
   callback: (err: AppError | Error | null, origin?: StaticOrigin) => void
 ) => {
+  console.log(`Resolving origin: ${origin}`);
+
   if (allowedOrigins.includes(origin as string)) {
     return callback(null, origin);
   }

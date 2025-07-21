@@ -68,9 +68,11 @@ export class ApiClient {
     const response = await fetch(endpoint, {
       method: "DELETE",
     });
+
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
-    return response.json();
+
+    return true; // Assuming successful deletion returns true
   }
 }
