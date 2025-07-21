@@ -8,12 +8,10 @@
     "dev": "vite",
     "lint": "oxlint --fix",
     "check-types": "tsc --noEmit",
-    "test:unit": "vitest --project unit",
-    "test:int": "vitest --project int",
-    "test:ui": "vitest --project ui"
+    "test:ui": "vitest --project ui",
+    "test:e2e": "npx playwright test"
   },
   "dependencies": {
-    "@faker-js/faker": "^9.9.0",
     "@hookform/resolvers": "^5.1.1",
     "@radix-ui/react-alert-dialog": "^1.1.14",
     "@radix-ui/react-dialog": "^1.1.14",

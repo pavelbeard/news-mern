@@ -267,6 +267,21 @@ describe("News API Tests", () => {
     });
 
     it("should throw an error if the body is invalid", async () => {
+      const newsData = {
+        title: "Test News Archive",
+        author: "Test Author",
+        content: "This is a test news content for archive.",
+        description: "Test description for archive",
+      };
+
+      await supertest(app)
+        .post("/api/v1/news")
+        .send(newsData)
+        .expect(201)
+        .expect((res) => {
+          expect(res.body.object).toBeDefined();
+        });
+
       const response = await supertest(app)
         .get("/api/v1/news-last")
         .expect(200)

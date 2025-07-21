@@ -209,7 +209,7 @@ describe("News controller", () => {
         expect(next).toHaveBeenCalledWith(
           new AppError(
             "NOT_FOUND",
-            "News didn't updated, because it doesn't exist."
+            "News didn't update, because it doesn't exist."
           )
         );
 
@@ -217,7 +217,7 @@ describe("News controller", () => {
 
         expect(calledNext).toBeInstanceOf(AppError);
         expect(calledNext.message).toBe(
-          "News didn't updated, because it doesn't exist."
+          "News didn't update, because it doesn't exist."
         );
         expect(calledNext.statusCode).toBe(404);
       });
@@ -305,7 +305,7 @@ describe("News controller", () => {
         expect(next).toHaveBeenCalledWith(
           new AppError(
             "NOT_FOUND",
-            "News didn't updated, because it doesn't exist."
+            "News didn't update, because it doesn't exist."
           )
         );
 
@@ -313,7 +313,7 @@ describe("News controller", () => {
 
         expect(calledNext).toBeInstanceOf(AppError);
         expect(calledNext.message).toBe(
-          "News didn't updated, because it doesn't exist."
+          "News didn't update, because it doesn't exist."
         );
         expect(calledNext.statusCode).toBe(404);
       });

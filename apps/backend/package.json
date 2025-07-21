@@ -11,7 +11,7 @@
     "lint": "oxlint --fix",
     "check-types": "tsc --noEmit",
     "test:unit": "vitest --project unit",
-    "test:int": "vitest --project int",
+    "test:int": "vitest --project integration",
     "seed": "dotenvx run -- tsx ./src/lib/db/seed.ts",
     "reset-db": "tsx ./src/lib/db/reset-db.ts"
   },
