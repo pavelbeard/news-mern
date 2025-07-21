@@ -4,7 +4,7 @@ import { createNewsURL } from "@/utils/create-news-url";
 import NewsAddNewsDialog from "./news-add-news-dialog";
 import { cn } from "@/lib/utils";
 import Placeholder from "@/assets/placeholder.png";
-import { useGetNews } from "@/lib/hooks/news/use-get-all-news";
+import { useGetNews } from "@/lib/hooks/news/use-get-news";
 
 export default function NewsPage() {
   const location = useLocation();
@@ -35,7 +35,7 @@ export default function NewsPage() {
               }}
             >
               <article className="p-6 bg-amber-300/80 rounded-2xl flex flex-col gap-0.5">
-                <h1 className="text-2xl font-bold">{news.title}</h1>
+                <h1 aria-label={news.title} className="text-2xl font-bold">{news.title}</h1>
                 <img src={Placeholder} alt={`news-placeholder-${news._id}`} />
                 <div className="flex items-center gap-1">
                   <p>{news.author}</p>

@@ -1,9 +1,9 @@
 import { describe, it } from "vitest";
-import { main } from "./seed";
+import { seedDb } from "./seed";
 
 describe("Database seeding", () => {
   it("should seed the database with initial data", async () => {
-    await main()
+    await seedDb()
       .then(() => {
         console.log("Database seeding completed successfully.");
       })

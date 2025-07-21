@@ -83,7 +83,7 @@ describe("News controller", () => {
 
       expect(calledNext).toBeInstanceOf(AppError);
       expect(calledNext.message).toBe(
-        "The article with that title already exists."
+        "The news with that title already exists."
       );
       expect(calledNext.statusCode).toBe(400);
     });

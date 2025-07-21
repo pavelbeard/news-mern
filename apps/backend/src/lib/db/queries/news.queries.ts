@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import {
   NewSchemaType,
   NewsUpdateSchemaType,
@@ -46,6 +47,10 @@ export const getAllArchiveNews = async () => {
 };
 
 export const getNewsById = async (_id: string) => {
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return null;
+  }
+
   return await News.findById(_id);
 };
 
@@ -78,22 +83,35 @@ export const updateNewsById = async (
   _id: string,
   data: NewsUpdateSchemaType["body"]
 ) => {
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return null;
+  }
+
   return await News.findByIdAndUpdate(
     { _id },
     { $set: { ...data } },
     { new: true }
-  );
+  ).lean();
 };
 
 export const setNewsArchived = async (_id: string, archiveDate: string) => {
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return null;
+  }
+
   return await News.findByIdAndUpdate(
     _id,
     { $set: { archiveDate } },
     { new: true }
-  );
+  ).lean();
 };
 
 /*DELETE*/
 export const deleteNews = async (_id: string) => {
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return false;
+  }
+
   await News.deleteOne({ _id });
+  return true;
 };

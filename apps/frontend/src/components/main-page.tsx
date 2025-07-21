@@ -27,7 +27,7 @@ export default function Home() {
           maskPosition: "top",
         }}
       >
-        <h1 data-testid="title" className="text-3xl font-bold">
+        <h1 className="text-3xl font-bold">
           {data.object.title}
         </h1>
         <img src={Placeholder} alt="news-image-main" width={800} />

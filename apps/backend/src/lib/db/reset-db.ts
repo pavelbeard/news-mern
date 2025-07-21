@@ -1,11 +1,10 @@
 import { client } from "./client";
 import { News } from "./models/news.models";
 
-async function main() {
-  await client(
-    process.env.MONGODB_URL ??
-      "mongodb://admin:admin@localhost:27018/?authSource=admin"
-  ).catch(() => console.error("Error while connecting to database."));
+export async function resetDb() {
+  await client(process.env.MONGODB_URL ?? "mongodb://localhost:27018").catch(
+    () => console.error("Error while connecting to database.")
+  );
 
   console.log("Connected to database.");
 
@@ -18,7 +17,7 @@ async function main() {
   }
 }
 
-main()
+resetDb()
   .then()
   .catch(() => {
     console.log("Error while dropping database");

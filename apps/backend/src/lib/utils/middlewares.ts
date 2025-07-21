@@ -36,17 +36,9 @@ export const errorFallbackMiddleware = (
   _: NextFunction
 ) => {
   console.error(err.name);
-  res
-    .status(
-      "statusCode" in err
-        ? (err.statusCode as number)
-        : err.name === "CastError"
-          ? 404
-          : 500
-    )
-    .json({
-      message: err instanceof AppError ? err.message : "Internal Server Error",
-    });
+  res.status("statusCode" in err ? (err.statusCode as number) : 500).json({
+    message: err instanceof AppError ? err.message : "Internal Server Error",
+  });
 };
 
 export const schemaValidationMiddleware =

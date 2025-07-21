@@ -41,7 +41,14 @@ export type NewsUpdateSchemaType = z.infer<typeof newsUpdateSchema>;
 
 export const newsArchiveSchema = newsParamsBaseSchema.extend({
   body: z.object({
-    archiveDate: z.string(),
+    archiveDate: z.string().refine((date) => {
+      try {
+        new Date(date).toISOString();
+        return true;
+      } catch {
+        return false;
+      }
+    }),
   }),
 });
 

@@ -15,6 +15,9 @@ export default defineConfig({
           include: ["./src/tests/ui/**/*.test.{ts,tsx}"],
           exclude: ["node_modules", "dist"],
           setupFiles: ["./src/tests/ui/setupUiTests.ts"],
+          alias: {
+            news_queries: "./src/lib/api/queries/news.queries.ts",
+          },
         },
       },
     ],

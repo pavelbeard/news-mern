@@ -1,18 +1,30 @@
 services:
+  dev-db:
+    image: mongo:latest
+    container_name: dev-db-news
+    ports:
+      - "27018:27017"
+    volumes:
+      - dev-db-data:/data/db
+    networks:
+      - testing-network
+    restart: always
+
   int-db:
     image: mongo:latest
     container_name: int-db-news
     ports:
-      - "27018:27017"
+      - "27019:27017"
     volumes:
       - int-db-data:/data/db
     networks:
-      - int-network
+      - testing-network
     restart: always
 
 volumes:
   int-db-data:
+  dev-db-data:
 
 networks:
-  int-network:
+  testing-network:
     driver: bridge

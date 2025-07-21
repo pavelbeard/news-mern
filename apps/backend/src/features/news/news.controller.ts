@@ -53,10 +53,7 @@ export class NewsController {
 
     if (await newsQueries.getNewsByTitle(body.title)) {
       return next(
-        new AppError(
-          "BAD_REQUEST",
-          "The article with that title already exists."
-        )
+        new AppError("BAD_REQUEST", "The news with that title already exists.")
       );
     }
 
@@ -133,7 +130,7 @@ export class NewsController {
       return next(
         new AppError(
           "NOT_FOUND",
-          "News didn't updated, because it doesn't exist."
+          "News didn't update, because it doesn't exist."
         )
       );
     }
@@ -157,10 +154,6 @@ export class NewsController {
       return next(new AppError("BAD_REQUEST", "There is no body."));
     }
 
-    if (!body?.archiveDate) {
-      return next(new AppError("BAD_REQUEST", "There is no <archiveDate>."));
-    }
-
     const updatedNews = await newsQueries.setNewsArchived(
       _id as string,
       body.archiveDate
@@ -170,7 +163,7 @@ export class NewsController {
       return next(
         new AppError(
           "NOT_FOUND",
-          "News didn't updated, because it doesn't exist."
+          "News didn't update, because it doesn't exist."
         )
       );
     }
@@ -183,14 +176,23 @@ export class NewsController {
   static async deleteNews(
     req: NewsDeleteRequest,
     res: Response,
-    _: NextFunction
+    next: NextFunction
   ) {
     const {
       params: { _id },
     } = req;
 
-    await newsQueries.deleteNews(_id);
+    const deletedNews = await newsQueries.deleteNews(_id);
 
-    res.status(204);
+    if (!deletedNews) {
+      return next(
+        new AppError(
+          "NOT_FOUND",
+          "News didn't delete, because it doesn't exist."
+        )
+      );
+    }
+
+    res.status(204).json();
   }
 }

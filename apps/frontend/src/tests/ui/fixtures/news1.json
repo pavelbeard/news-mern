@@ -1,10 +1,12 @@
 {
-    "_id": "6878db10820b0274fab5a354",
-    "title": "AI Breakthrough in Language Translation",
-    "description": "A new model surpasses human-level accuracy in multilingual translation.",
-    "date": {
-        "$date": "2025-07-01T00:00:00Z"
-    },
-    "content": "Researchers have developed a new AI language model that achieves unprecedented accuracy in translation tasks.\n\nThe model has been tested across 50 languages and shows superior performance over traditional methods.\n\nExperts believe this could revolutionize international communication and education.",
-    "author": "Jane Smith"
+    "object": {
+        "_id": "6878db10820b0274fab5a354",
+        "title": "AI Breakthrough in Language Translation",
+        "description": "A new model surpasses human-level accuracy in multilingual translation.",
+        "date": {
+            "$date": "2025-07-01T00:00:00Z"
+        },
+        "content": "Researchers have developed a new AI language model that achieves unprecedented accuracy in translation tasks.\n\nThe model has been tested across 50 languages and shows superior performance over traditional methods.\n\nExperts believe this could revolutionize international communication and education.",
+        "author": "Jane Smith"
+    }
 }
