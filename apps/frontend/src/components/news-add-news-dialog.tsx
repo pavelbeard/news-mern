@@ -7,7 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
-import { useSaveNews_v2 } from "@/lib/hooks/news/use-save-news";
+import { useSaveNews } from "@/lib/hooks/news/use-save-news";
 import {
   Form,
   FormControl,
@@ -25,7 +25,7 @@ export default function NewsAddNewsDialog({
 }: {
   className?: string;
 }) {
-  const { form, onSubmit, isOpen, setIsOpen, isError } = useSaveNews_v2();
+  const { form, onSubmit, isOpen, setIsOpen, isError } = useSaveNews();
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

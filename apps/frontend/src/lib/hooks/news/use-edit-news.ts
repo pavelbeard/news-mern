@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { useParams } from "react-router";
 import { useGetNewsById } from "./use-get-news-by-id";
 
-export const useEditNews_v2 = () => {
+export const useEditNews = () => {
   const query = useQueryClient();
   const params = useParams();
   const { data } = useGetNewsById(params._id as string);

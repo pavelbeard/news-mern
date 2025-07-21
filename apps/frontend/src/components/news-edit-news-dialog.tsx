@@ -18,14 +18,14 @@ import {
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import DatePicker from "./ui/date-picker";
-import { useEditNews_v2 } from "@/lib/hooks/news/use-edit-news";
+import { useEditNews } from "@/lib/hooks/news/use-edit-news";
 
 export default function NewsEditDialog({
   className,
 }: {
   className?: string;
 }) {
-  const { form, onSubmit, isOpen, setIsOpen } = useEditNews_v2();
+  const { form, onSubmit, isOpen, setIsOpen } = useEditNews();
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

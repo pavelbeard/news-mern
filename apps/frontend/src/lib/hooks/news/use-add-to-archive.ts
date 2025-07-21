@@ -23,7 +23,8 @@ export const useAddToArchive = () => {
     },
   });
 
-  const onSubmit = async () => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     await mutation.mutateAsync();
   };
 

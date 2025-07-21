@@ -8,7 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export const useSaveNews_v2 = () => {
+export const useSaveNews = () => {
   const [isOpen, setIsOpen] = useState(false);
   const queryClient = useQueryClient();
   const form = useForm({
