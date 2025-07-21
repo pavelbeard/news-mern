@@ -75,17 +75,22 @@ Casi toda la infraestructura está cubierta de pruebas (unit, integration, e2e)
 
 Sigue estos pasos para instalar y ejecutar el proyecto localmente:
 
-```markdown
-1. Clona este repositorio:
-   git clone https://github.com/pavelbeard/news-mern.git
+```bash
+# 1. Clona este repositorio:
+git clone https://github.com/pavelbeard/news-mern.git
 
-2. Entra al proyecto:
-   cd news-mern && code .
+# 2. Entra en el directorio del proyecto y ábrelo en tu editor:
+cd news-mern && code .
 
-3. Lánzalo:
+# 3. Instala las dependencias:
+npm or pnpm or yarn install
 
+# 4. Asegúrate de tener Docker instalado, ya que el backend y pruebas de ello lo utilizan:
+# en archivo `apps/backend/` lanza
+docker compose up -d --build
+
+# 5. Lanza el proyecto:
 turbo run dev
-
 ```
 
 ## ▶️ Comandos para ejecutar las pruebas
