@@ -13,24 +13,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "./ui/alert-dialog";
-import { useFetcher, useLocation, useNavigate } from "react-router";
-import { useEffect } from "react";
+import { useDeleteArchive } from "@/lib/hooks/news/use-delete-archive";
 
 export default function NewsDeleteArchiveDialog() {
-  const location = useLocation();
-  const navigation = useNavigate();
-  const fetcher = useFetcher();
-
-  const goToHome = () => {
-    navigation("/", { replace: true });
-  };
-
-  useEffect(() => {
-    if (fetcher.state === "submitting") goToHome();
-  }, [fetcher.state]);
+  const { isLoading, isError, onSubmit, isOpen, setIsOpen } =
+    useDeleteArchive();
 
   return (
-    <AlertDialog>
+    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
         <Button variant="destructive" size="icon">
           <XIcon />
@@ -50,11 +40,13 @@ export default function NewsDeleteArchiveDialog() {
             <Button>Cancel</Button>
           </AlertDialogCancel>
           <AlertDialogAction asChild>
-            <fetcher.Form action={location.pathname} method="delete">
+            <form onSubmit={onSubmit}>
               <Button variant="destructive" type="submit">
                 Delete
               </Button>
-            </fetcher.Form>
+              {isLoading && <p className="text-gray-500 text-xs">Loading...</p>}
+              {isError && <p className="text-red-500">An error occurred...</p>}
+            </form>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

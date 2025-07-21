@@ -3,10 +3,9 @@ import { createBrowserRouter } from "react-router";
 import NewsLayout from "@/components/news-layout";
 import Home from "@/components/main-page";
 import NewsPage from "@/components/news-page";
-import Error from "@/components/error";
-import * as loaders from "./router-api/loaders/news.loaders";
-import * as actions from "./router-api/actions/news.actions";
-import NewsArticlePage from "@/components/news-article-page";
+import Error from "@/components/global-error";
+import NewsArticlePage from "@/components/news-news-page";
+import NotFound from "@/components/not-found";
 
 const router = createBrowserRouter([
   {
@@ -17,23 +16,19 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        // loader: loaders.getLastNews,
       },
       {
         path: "/news",
         element: <NewsLayout />,
-        // action: actions.saveNews,
         children: [
           {
             index: true,
             element: <NewsPage />,
-            loader: loaders.getAllNews,
           },
           {
             path: "id/:_id/title/:title",
-            element: <NewsPage />,
-            loader: loaders.getNewsById,
-            action: actions.updateNews,
+            element: <NewsArticlePage />,
+            errorElement: <NotFound />,
           },
         ],
       },
@@ -44,13 +39,11 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <NewsPage />,
-            loader: loaders.getAllArchiveNews,
           },
           {
             path: "id/:_id/title/:title",
             element: <NewsArticlePage />,
-            loader: loaders.getNewsById,
-            action: actions.archiveNewsAction,
+            errorElement: <NotFound />,
           },
         ],
       },

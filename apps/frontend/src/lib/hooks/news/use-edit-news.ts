@@ -1,41 +1,44 @@
+import * as newsQueries from "@/lib/api/queries/news.queries";
 import {
   newsUpdateSchema,
   NewsUpdateSchemaType,
 } from "@/lib/schemas/news.schemas";
-import { INewsObject__Database } from "@/lib/types/news";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useLocation, useParams, useSubmit } from "react-router";
+import { useParams } from "react-router";
+import { useGetNewsById } from "./use-get-news-by-id";
 
-export const useEditNews = (defaultData: INewsObject__Database["object"]) => {
+export const useEditNews_v2 = () => {
+  const query = useQueryClient();
   const params = useParams();
-  const location = useLocation();
+  const { data } = useGetNewsById(params._id as string);
   const [isOpen, setIsOpen] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(newsUpdateSchema),
     defaultValues: {
       _id: params._id as string,
-      data: defaultData,
+      data: data?.object,
     },
   });
-  const submit = useSubmit();
+
+  const mutation = useMutation({
+    mutationFn: async (data: NewsUpdateSchemaType) => {
+      return newsQueries.updateNews(data);
+    },
+    onSuccess: () => {
+      query.invalidateQueries({
+        queryKey: ["news", params._id as string],
+      });
+    },
+  });
 
   const onSubmit = (validatedData: NewsUpdateSchemaType) => {
-    submit(validatedData, {
-      method: "PUT",
-      action: location.pathname,
-      encType: "application/json",
-    });
-
+    mutation.mutate(validatedData);
     setIsOpen(false);
   };
 
-  return {
-    form,
-    onSubmit,
-    isOpen,
-    setIsOpen,
-  };
+  return { onSubmit, form, isOpen, setIsOpen };
 };

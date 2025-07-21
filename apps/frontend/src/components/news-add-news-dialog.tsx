@@ -1,5 +1,5 @@
 import { Button } from "./ui/button";
-import { EditIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -7,6 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
+import { useSaveNews_v2 } from "@/lib/hooks/news/use-save-news";
 import {
   Form,
   FormControl,
@@ -18,45 +19,33 @@ import {
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import DatePicker from "./ui/date-picker";
-import { useEditNews } from "@/lib/hooks/news/use-edit-news";
-import { useLoaderData } from "react-router";
-import { INewsObject__Database } from "@/lib/types/news";
 
-export default function NewsEditArticleDialog({
+export default function NewsAddNewsDialog({
   className,
 }: {
   className?: string;
 }) {
-  const data = useLoaderData<INewsObject__Database>();
-  const { _id, ...defaultData } = data.object;
-  const { form, onSubmit, isOpen, setIsOpen } = useEditNews(
-    defaultData as INewsObject__Database["object"]
-  );
+  const { form, onSubmit, isOpen, setIsOpen, isError } = useSaveNews_v2();
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild className={className}>
-        <Button variant="secondary" size="icon">
-          <EditIcon />
+        <Button>
+          <PlusIcon /> Add news?
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit News Item</DialogTitle>
+          <DialogTitle>Add News Item</DialogTitle>
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-4"
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <section className="space-y-4">
                 <FormField
                   control={form.control}
-                  name="data.title"
+                  name="title"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        {field.name.replace(/data./, "").capitalize()}
-                      </FormLabel>
+                      <FormLabel>{field.name.capitalize()}</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -66,12 +55,10 @@ export default function NewsEditArticleDialog({
                 />
                 <FormField
                   control={form.control}
-                  name="data.description"
+                  name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        {field.name.replace(/data./, "").capitalize()}
-                      </FormLabel>
+                      <FormLabel>{field.name.capitalize()}</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -86,12 +73,10 @@ export default function NewsEditArticleDialog({
                 >
                   <FormField
                     control={form.control}
-                    name="data.date"
+                    name="date"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          {field.name.replace(/data./, "").capitalize()}
-                        </FormLabel>
+                        <FormLabel>{field.name.capitalize()}</FormLabel>
                         <FormControl>
                           <DatePicker props={field} />
                         </FormControl>
@@ -101,12 +86,10 @@ export default function NewsEditArticleDialog({
                   />
                   <FormField
                     control={form.control}
-                    name="data.author"
+                    name="author"
                     render={({ field }) => (
                       <FormItem className="flex-1">
-                        <FormLabel>
-                          {field.name.replace(/data./, "").capitalize()}
-                        </FormLabel>
+                        <FormLabel>{field.name.capitalize()}</FormLabel>
                         <FormControl>
                           <Input {...field} />
                         </FormControl>
@@ -118,12 +101,10 @@ export default function NewsEditArticleDialog({
 
                 <FormField
                   control={form.control}
-                  name="data.content"
+                  name="content"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        {field.name.replace(/data./, "").capitalize()}
-                      </FormLabel>
+                      <FormLabel>{field.name.capitalize()}</FormLabel>
                       <FormControl>
                         <Textarea
                           {...field}
@@ -136,8 +117,13 @@ export default function NewsEditArticleDialog({
                 />
               </section>
               <Button disabled={!form.formState.isValid} type="submit">
-                Save
+                Add news
               </Button>
+              {isError && (
+                <p className="text-red-500">
+                  An error occurred while saving the news. Please try again.
+                </p>
+              )}
             </form>
           </Form>
         </DialogHeader>

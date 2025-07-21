@@ -1,17 +1,18 @@
 import { Separator } from "./ui/separator";
-import { Link, useLoaderData, useLocation } from "react-router";
-import { INewsObjects__Database } from "@/lib/types/news";
+import { Link, useLocation } from "react-router";
 import { createNewsURL } from "@/utils/create-news-url";
-import NewsAddArticleDialog from "./news-add-article-dialog";
+import NewsAddNewsDialog from "./news-add-news-dialog";
 import { cn } from "@/lib/utils";
 import Placeholder from "@/assets/placeholder.png";
+import { useGetNews } from "@/lib/hooks/news/use-get-all-news";
 
 export default function NewsPage() {
-  const data = useLoaderData<INewsObjects__Database>();
   const location = useLocation();
-  const isNewsArchive = location.pathname.match(/^(\/news-archive)/);
+  const isNewsArchive = Boolean(location.pathname.match(/^(\/news-archive)/));
 
-  if (data.objects && data.objects.length > 0) {
+  const { data } = useGetNews(isNewsArchive);
+
+  if (data?.objects && data.objects.length > 0) {
     return (
       <div
         className={cn(
@@ -19,7 +20,7 @@ export default function NewsPage() {
           data.objects.length > 2 ? "rounded-t-3xl" : "rounded-3xl"
         )}
       >
-        {!isNewsArchive && <NewsAddArticleDialog className="w-32 my-4" />}
+        {!isNewsArchive && <NewsAddNewsDialog className="w-32 my-4" />}
         <div className={cn("flex flex-col space-y-2", isNewsArchive && "my-4")}>
           {data?.objects?.map((news) => (
             <Link
@@ -87,7 +88,7 @@ export default function NewsPage() {
   return (
     <div className="place-self-center flex flex-col py-4 px-8 mt-4 items-center gap-4 bg-amber-300 rounded-2xl">
       <header className="text-3xl font-bold">Nothing here</header>
-      {!isNewsArchive && <NewsAddArticleDialog />}
+      {!isNewsArchive && <NewsAddNewsDialog />}
     </div>
   );
 }

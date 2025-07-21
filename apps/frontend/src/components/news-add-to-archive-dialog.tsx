@@ -13,13 +13,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "./ui/alert-dialog";
-import { Form, useLocation } from "react-router";
+import { useAddToArchive } from "@/lib/hooks/news/use-add-to-archive";
 
-export default function NewsAddArchiveDialog() {
-  const location = useLocation();
+export default function NewsAddToArchiveDialog() {
+  const { onSubmit, isLoading, isError, isOpen, setIsOpen } = useAddToArchive();
 
   return (
-    <AlertDialog>
+    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
         <Button variant="secondary" size="icon">
           <ArchiveIcon />
@@ -39,17 +39,16 @@ export default function NewsAddArchiveDialog() {
             <Button>Cancel</Button>
           </AlertDialogCancel>
           <AlertDialogAction asChild>
-            <Form
-              action={location.pathname.replace(/news/, "news-archive")}
-              method="patch"
-            >
+            <form onSubmit={onSubmit}>
               <Button
                 type="submit"
                 className="bg-amber-100 border-gray-600 text-black hover:bg-amber-300"
               >
                 Continue
               </Button>
-            </Form>
+              {isLoading && <p className="text-gray-500 text-xs">Loading...</p>}
+              {isError && <p className="text-red-500">An error occurred...</p>}
+            </form>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

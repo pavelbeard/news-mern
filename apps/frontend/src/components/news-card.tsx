@@ -1,8 +1,8 @@
 import { INewsObject__Database } from "@/lib/types/news";
 import { Card, CardAction, CardContent, CardHeader } from "./ui/card";
 import Placeholder from "@/assets/placeholder.png";
-import NewsAddArchiveDialog from "./news-add-archive-dialog";
-import NewsEditArticleDialog from "./news-edit-article-dialog";
+import NewsAddToArchiveDialog from "./news-add-to-archive-dialog";
+import NewsEditDialog from "./news-edit-news-dialog";
 import NewsDeleteArchiveDialog from "./news-delete-archive-dialog";
 
 export default function NewsCard({
@@ -17,8 +17,8 @@ export default function NewsCard({
           <NewsDeleteArchiveDialog />
         ) : (
           <>
-            <NewsAddArchiveDialog />
-            <NewsEditArticleDialog />
+            <NewsAddToArchiveDialog />
+            <NewsEditDialog />
           </>
         )}
       </CardAction>
