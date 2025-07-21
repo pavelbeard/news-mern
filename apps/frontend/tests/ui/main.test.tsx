@@ -3,8 +3,8 @@ import { vi, describe, it, beforeEach } from "vitest";
 import { render } from "@testing-library/react";
 import Home from "@/components/main-page";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import dummyData from "@/tests/ui/fixtures/news1.json";
-import dummyData_objects from "@/tests/ui/fixtures/news2_array.json";
+import dummyData from "tests/ui/fixtures/news1.json";
+import dummyData_objects from "tests/ui/fixtures/news2_array.json";
 import NewsPage from "@/components/news-page";
 
 const queryClient = new QueryClient();
